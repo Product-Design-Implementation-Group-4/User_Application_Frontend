@@ -1,97 +1,188 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import { auth, db } from "./firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db, storage } from "./firebase";
 import { setDoc, doc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom"; 
+import "../App.css";
+import "../index.css";
 
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(""); 
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
+  const [photo, setPhoto] = useState(null); 
+  const [loading, setLoading] = useState(false); 
+
+  const navigate = useNavigate(); 
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match!", {
+        position: "bottom-center",
+      });
+      return;
+    }
+
+    setLoading(true); 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      const user = auth.currentUser;
-      console.log(user);
+     
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      let photoURL = ""; 
+
+      if (photo) {
+        const storageRef = ref(getStorage(), `profile_pictures/${user.uid}`);
+        try {
+          const snapshot = await uploadBytes(storageRef, photo);
+          const url = await getDownloadURL(snapshot.ref);
+          photoURL = url; 
+          console.log("Uploaded photo URL:", photoURL);
+        } catch (error) {
+          console.error("Error uploading photo:", error.message);
+          toast.error("Failed to upload photo", {
+            position: "bottom-center",
+          });
+        }
+      }
+
+      
       if (user) {
         await setDoc(doc(db, "Users", user.uid), {
           email: user.email,
           firstName: fname,
           lastName: lname,
-          photo:""
+          photo: photoURL, 
         });
       }
-      console.log("User Registered Successfully!!");
-      toast.success("User Registered Successfully!!", {
+
+      console.log("User Registered Successfully!");
+      toast.success("User Registered Successfully!", {
         position: "top-center",
       });
+
+      
+      navigate("/profile"); 
     } catch (error) {
-      console.log(error.message);
+      console.error("Error during registration:", error.message);
       toast.error(error.message, {
+        position: "bottom-center",
+      });
+    } finally {
+      setLoading(false); 
+    }
+  };
+
+  
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      setPhoto(file); 
+    } else {
+      toast.error("Please upload a valid image file", {
         position: "bottom-center",
       });
     }
   };
 
   return (
-    <form onSubmit={handleRegister}>
-      <h3>Sign Up</h3>
+    <div className="app-container">
+      <div className="form-container">
+        <form onSubmit={handleRegister} className="form">
+          <h3>Sign Up</h3>
+          
+          
+          <div className="form-group">
+            <label>First Name</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter your first name"
+              onChange={(e) => setFname(e.target.value)}
+              required
+            />
+          </div>
 
-      <div className="mb-3">
-        <label>First name</label>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="First name"
-          onChange={(e) => setFname(e.target.value)}
-          required
-        />
-      </div>
+          
+          <div className="form-group">
+            <label>Last Name</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter your last name"
+              onChange={(e) => setLname(e.target.value)}
+              required
+            />
+          </div>
 
-      <div className="mb-3">
-        <label>Last name</label>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Last name"
-          onChange={(e) => setLname(e.target.value)}
-        />
-      </div>
+          
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              className="form-control"
+              placeholder="Enter your email"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-      <div className="mb-3">
-        <label>Email address</label>
-        <input
-          type="email"
-          className="form-control"
-          placeholder="Enter email"
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </div>
+          
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Enter your password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-      <div className="mb-3">
-        <label>Password</label>
-        <input
-          type="password"
-          className="form-control"
-          placeholder="Enter password"
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </div>
+          
+          <div className="form-group">
+            <label>Confirm Password</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Confirm your password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
 
-      <div className="d-grid">
-        <button type="submit" className="btn btn-primary">
-          Sign Up
-        </button>
+          
+          <div className="form-group">
+            <label>Profile Picture</label>
+            <input
+              type="file"
+              className="form-control"
+              onChange={handlePhotoChange} // Handle file change
+            />
+          </div>
+
+          
+          <button type="submit" className="submit-button" disabled={loading}>
+            {loading ? "Signing Up..." : "Sign Up"}
+          </button>
+
+          
+          <div className="form-footer">
+            <p>
+              Already have an account? <a href="/login">Login</a>
+            </p>
+          </div>
+        </form>
       </div>
-      <p className="forgot-password text-right">
-        Already registered <a href="/login">Login</a>
-      </p>
-    </form>
+    </div>
   );
 }
+
 export default Register;

@@ -2,17 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -24,15 +13,67 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.profile-container {
+  padding: 2em;
+  display: flex;
+  justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.profile-form {
+  max-width: 500px;
+  width: 100%;
+  background-color: #f1f1f1;
+  padding: 2em;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.form-group {
+  margin-bottom: 1em;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submit-button,
+.logout-button {
+  width: 100%;
+  padding: 0.75em;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-button:hover,
+.logout-button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+  .profile-container {
+    padding: 1em;
   }
-  to {
-    transform: rotate(360deg);
+
+  .profile-form {
+    padding: 1em;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 0.5em;
   }
 }
