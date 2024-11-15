@@ -2,7 +2,7 @@ import { FacebookAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { toast } from "react-toastify";
 import { setDoc, doc } from "firebase/firestore";
-import facebookLogo from "../assets/facebook.png"; // Replace with the correct path to your logo
+import facebookLogo from "../assets/facebook.png"; 
 
 function SignInWithFacebook() {
   function facebookLogin() {

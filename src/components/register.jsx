@@ -164,7 +164,7 @@ function Register() {
             <input
               type="file"
               className="form-control"
-              onChange={handlePhotoChange} // Handle file change
+              onChange={handlePhotoChange} 
             />
           </div>
 

@@ -72,37 +72,36 @@ function Profile() {
     if (!confirmed) return;
 
     try {
-      // Attempt to delete user data from Firestore
+      
       const userDocRef = doc(db, "Users", user.uid);
       await deleteDoc(userDocRef);
 
-      // Check if profile picture exists in Firebase Storage
+      
       if (userDetails.photo) {
         const photoRef = ref(storage, `profile_pictures/${user.uid}`);
         try {
-          await getMetadata(photoRef); // Check if file exists before deletion
+          await getMetadata(photoRef); 
           await deleteObject(photoRef);
         } catch (error) {
           if (error.code !== "storage/object-not-found") {
-            throw error; // Throw error if it's not 'object-not-found'
+            throw error; 
           }
-          // If 'object-not-found', proceed without error (file simply doesn't exist)
+          
         }
       }
 
-      // Attempt to delete user authentication account
       await user.delete();
 
       alert("Account deleted successfully.");
-      window.location.href = "/"; // Redirect to the home page after deletion
+      window.location.href = "/"; 
     } catch (error) {
       if (error.code === "auth/requires-recent-login") {
         alert("Session expired. Please reauthenticate to delete your account.");
         
-        // Reauthenticate and retry account deletion
+        
         const reauthenticated = await handleReauthentication();
         if (reauthenticated) {
-          handleDeleteAccount(); // Retry deletion after successful reauthentication
+          handleDeleteAccount(); 
         }
       } else {
         alert(`Error deleting account: ${error.message}`);
@@ -132,7 +131,7 @@ function Profile() {
     try {
       await auth.signOut();
       alert("User logged out successfully!");
-      window.location.href = "/login"; // Redirect only after successful logout
+      window.location.href = "/login"; 
     } catch (error) {
       alert(`Error logging out: ${error.message}`);
     }
