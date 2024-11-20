@@ -21,65 +21,67 @@ function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-
-    
+  
+    if (!email || !password || !confirmPassword || !fname || !lname) {
+      alert("All fields are required!");
+      return;
+    }
+  
     if (password !== confirmPassword) {
       toast.error("Passwords do not match!", {
         position: "bottom-center",
       });
       return;
     }
-
-    setLoading(true); 
+  
+    setLoading(true);
     try {
-     
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
-      let photoURL = ""; 
-
+      const defaultPhotoURL = "https://firebasestorage.googleapis.com/v0/b/testandroidpro-179da.appspot.com/o/profile_pictures%2F20200226_004549156_iOS.png?alt=media&token=87c5c172-ca08-4822-a52d-090f548395f0";
+  
+      let photoURL = defaultPhotoURL;
+  
       if (photo) {
         const storageRef = ref(getStorage(), `profile_pictures/${user.uid}`);
         try {
           const snapshot = await uploadBytes(storageRef, photo);
           const url = await getDownloadURL(snapshot.ref);
-          photoURL = url; 
-          console.log("Uploaded photo URL:", photoURL);
+          photoURL = url;
+          alert("Profile picture uploaded successfully!");
         } catch (error) {
-          console.error("Error uploading photo:", error.message);
+          alert("Failed to upload profile picture: " + error.message);
           toast.error("Failed to upload photo", {
             position: "bottom-center",
           });
         }
       }
-
-      
+  
       if (user) {
         await setDoc(doc(db, "Users", user.uid), {
           email: user.email,
           firstName: fname,
           lastName: lname,
-          photo: photoURL, 
+          photo: photoURL,
         });
       }
-
-      console.log("User Registered Successfully!");
+  
+      alert("User registered successfully!");
       toast.success("User Registered Successfully!", {
         position: "top-center",
       });
-
-      
-      navigate("/profile"); 
+  
+      navigate("/profile");
     } catch (error) {
-      console.error("Error during registration:", error.message);
+      alert("Error during registration: " + error.message);
       toast.error(error.message, {
         position: "bottom-center",
       });
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
-
+  
   
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
