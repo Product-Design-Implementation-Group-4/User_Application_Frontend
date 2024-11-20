@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { auth, db, storage } from "./firebase";
-import { doc, getDoc, deleteDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc, setDoc } from "firebase/firestore";
 import { deleteObject, ref, getMetadata } from "firebase/storage";
 import { reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
-import Navbar from "./navbar";
+import Navbar from "./Navbar";
+import ProfileForm from "./profileForm";
 import "../App.css";
 import "../index.css";
 
@@ -13,8 +14,47 @@ function Profile() {
     name: "",
     email: "",
     phone: "",
-    location: ""
+    location: "",
+    helperType: "",
+    description: "",
   });
+
+
+
+  const cities = [
+    "Helsinki", "Tampere", "Espoo", "Turku", "Vantaa", "Oulu", "Jyväskylä", "Kuopio", 
+    "Lahti", "Kouvola", "Pori", "Joensuu", "Lappeenranta", "Hämeenlinna", "Vaasa", 
+    "Seinäjoki", "Rovaniemi", "Mikkeli", "Salo", "Kotka", "Porvoo", "Kokkola", 
+    "Lohja", "Hyvinkää", "Kirkkonummi", "Järvenpää", "Rauma", "Tuusula", "Kajaani", 
+    "Savonlinna", "Kerava", "Nokia", "Kaarina", "Ylöjärvi", "Kangasala", 
+    "Jyväskylän Maalaiskunta", "Riihimäki", "Raseborg", "Imatra", "Sastamala", 
+    "Raahe", "Raisio", "Hollola", "Lempäälä", "Tornio", "Siilinjärvi", "Kurikka", 
+    "Iisalmi", "Varkaus", "Klaukkala", "Valkeakoski", "Mäntsälä", "Äänekoski", 
+    "Hamina", "Kuusankoski", "Korsholm", "Lieto", "Heinola", "Kemi", "Sipoo", 
+    "Jämsä", "Jakobstad", "Naantali", "Haukipudas", "Laukaa", "Pirkkala", 
+    "Pieksämäki", "Kempele", "Forssa", "Janakkala", "Kauhava", "Orimattila", 
+    "Loimaa", "Pielisjärvi", "Uusikaupunki", "Sippola", "Vammala", "Kontiolahti", 
+    "Kuusamo", "Pargas", "Ylivieska", "Nastola", "Lapua", "Loviisa", "Kauhajoki", 
+    "Kiiminki", "Ulvila", "Ilmajoki", "Kalajoki", "Liperi", "Eura", "Alavus", 
+    "Mikkelin Maalaiskunta", "Vehkalahti", "Kankaanpää", "Sääminki", "Mariehamn", 
+    "Lieksa", "Valkeala", "Pedersöre", "Nivala", "Nurmo", "Kivistö", "Joutseno", 
+    "Paimio", "Sotkamo", "Hämeenkyrö", "Huittinen", "Liminka", "Muurame", 
+    "Alajärvi", "Lapinlahti", "Leppävirta", "Saarijärvi", "Ii", "Oulunsalo", 
+    "Kitee", "Masku", "Kauniainen", "Eurajoki", "Orivesi", "Närpes", "Hattula", 
+    "Keuruu", "Muhos", "Somero", "Halikko", "Karis", "Sodankylä", "Karkkila", 
+    "Pöytyä", "Laitila", "Hanko", "Hausjärvi", "Keminmaa", "Elimäki", "Pudasjärvi", 
+    "Loppi", "Laihia", "Toijala", "Suomussalmi", "Nurmes", "Jalasjärvi", 
+    "Nurmijärvi", "Mynämäki", "Kuhmo", "Oulainen", "Kiuruvesi", "Kokemäki", 
+    "Kemijärvi", "Nykarleby", "Rajamäki", "Jämsänkoski", "Tyrvää", "Pyhäselkä", 
+    "Ikaalinen", "Outokumpu", "Säkylä", "Suonenjoki", "Virrat", "Inari", "Tyrnävä", 
+    "Parkano", "Harjavalta", "Vörå", "Haapajärvi", "Eno", "Vanaja", "Haapavesi", 
+    "Jokela", "Pälkäne", "Piikkiö", "Iitti", "Nilsiä", "Kittilä", "Viitasaari", 
+    "Kronoby", "Mänttä", "Kristinestad", "Siuntio", "Mäntyharju", "Tammela", 
+    "Pieksämäen Maalaiskunta", "Rusko", "Noormarkku", "Ähtäri", 
+  ];
+  const helperOptions = ["Person", "Van", "Car with Tow Bar"];
+
+  const [uploadedImages, setUploadedImages] = useState([]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -29,7 +69,9 @@ function Profile() {
               name: data.name || "",
               email: data.email || user.email,
               phone: data.phone || "",
-              location: data.location || ""
+              location: data.location || "",
+              helperType: data.helperType || "",
+              description: data.description || "",
             });
           } else {
             alert("No user data found in Firestore.");
@@ -72,36 +114,31 @@ function Profile() {
     if (!confirmed) return;
 
     try {
-      
       const userDocRef = doc(db, "Users", user.uid);
       await deleteDoc(userDocRef);
 
-      
       if (userDetails.photo) {
         const photoRef = ref(storage, `profile_pictures/${user.uid}`);
         try {
-          await getMetadata(photoRef); 
+          await getMetadata(photoRef);
           await deleteObject(photoRef);
         } catch (error) {
           if (error.code !== "storage/object-not-found") {
-            throw error; 
+            throw error;
           }
-          
         }
       }
 
       await user.delete();
 
       alert("Account deleted successfully.");
-      window.location.href = "/"; 
+      window.location.href = "/";
     } catch (error) {
       if (error.code === "auth/requires-recent-login") {
         alert("Session expired. Please reauthenticate to delete your account.");
-        
-        
         const reauthenticated = await handleReauthentication();
         if (reauthenticated) {
-          handleDeleteAccount(); 
+          handleDeleteAccount();
         }
       } else {
         alert(`Error deleting account: ${error.message}`);
@@ -131,42 +168,35 @@ function Profile() {
     try {
       await auth.signOut();
       alert("User logged out successfully!");
-      window.location.href = "/login"; 
+      window.location.href = "/login";
     } catch (error) {
       alert(`Error logging out: ${error.message}`);
     }
+  };
+
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files);
+    setUploadedImages((prev) => [...prev, ...files]);
+  };
+
+  const removeImage = (index) => {
+    setUploadedImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
     <div className="app-container">
       <Navbar userDetails={userDetails} handleLogout={handleLogout} handleDeleteAccount={handleDeleteAccount} />
       <div className="profile-container">
-        <form onSubmit={handleSubmit} className="profile-form">
-          <div className="form-group">
-            <label>Name:</label>
-            <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-          </div>
-          <div className="form-group">
-            <label>Email:</label>
-            <input type="email" name="email" value={formData.email} onChange={handleChange} required disabled />
-          </div>
-          <div className="form-group">
-            <label>Phone:</label>
-            <input type="tel" name="phone" value={formData.phone} onChange={handleChange} />
-          </div>
-          <div className="form-group">
-            <label>Location:</label>
-            <select name="location" value={formData.location} onChange={handleChange} required>
-              <option value="">Select location</option>
-              <option value="Oulu">Oulu</option>
-              <option value="Helsinki">Helsinki</option>
-              <option value="Tampere">Tampere</option>
-              <option value="Turku">Turku</option>
-              <option value="Vasa">Vasa</option>
-            </select>
-          </div>
-          <button type="submit" className="submit-button">Submit</button>
-        </form>
+        <ProfileForm
+          formData={formData}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          cityOptions={cities}
+          helperOptions={helperOptions}
+          handleImageUpload={handleImageUpload}
+          uploadedImages={uploadedImages}
+          removeImage={removeImage}
+        />
       </div>
     </div>
   );
