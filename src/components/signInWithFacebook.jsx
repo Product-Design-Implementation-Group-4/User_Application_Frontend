@@ -2,9 +2,11 @@ import { FacebookAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { toast } from "react-toastify";
 import { setDoc, doc } from "firebase/firestore";
-import facebookLogo from "../assets/facebook.png"; 
+import facebookLogo from "../assets/facebook.png";
+import { useNavigate } from "react-router-dom"; 
 
 function SignInWithFacebook() {
+  const navigate = useNavigate();
   function facebookLogin() {
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
@@ -20,7 +22,7 @@ function SignInWithFacebook() {
           toast.success("User logged in successfully", {
             position: "top-center",
           });
-          window.location.href = "/profile";
+          navigate("/profile");
         }
       })
       .catch((error) => {

@@ -14,19 +14,20 @@
 }
 
 .profile-container {
-  margin-top: 160px;
+  margin-top: 10px;
   padding: 2em;
   display: flex;
   justify-content: center;
 }
 
 .profile-form {
-  max-width: 500px;
+  max-width: 600px;
   width: 100%;
   background-color: #f1f1f1;
   padding: 2em;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  justify-content: center;
 }
 
 .form-group {
@@ -38,8 +39,8 @@
   padding: 0.75em;
   border: 1px solid #ccc;
   border-radius: 4px;
-  height: 150px; /* Change this value as needed */
-  resize: vertical; /* Allows the user to resize the textarea vertically */
+  height: 150px;
+  resize: vertical;
 }
 
 .form-group label {
@@ -82,11 +83,11 @@
 }
 
 .image-preview {
-  width: 100px; /* Control the size of the preview */
+  width: 100px;
   height: 100px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers the content horizontally */
+  align-items: center;
 }
 
 .image-preview img {
@@ -97,7 +98,7 @@
 }
 
 .image-preview button {
-  margin-top: 5px; /* Add space between the image and the button */
+  margin-top: 5px;
   background-color: rgb(2, 2, 2);
   color: white;
   border: none;
