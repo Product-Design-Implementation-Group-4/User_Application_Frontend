@@ -110,45 +110,60 @@ function Profile() {
   return (
     <div className="app-container">
       <Navbar userDetails={userDetails} handleLogout={handleLogout} handleDeleteAccount={handleDeleteAccount} />
-      <div className="profile-form" style={{ marginTop: "160px" }}>
-        <h1>Welcome, {userDetails?.name || "User"}</h1>
-        
-        {/* User Data */}
-        <p><strong>Email:</strong> {userDetails?.email}</p>
-        <p><strong>Phone:</strong> {userDetails?.phone || "Not provided"}</p>
-        <p><strong>Location:</strong> {userDetails?.location || "Not provided"}</p>
-        <p><strong>Helper Type:</strong> {userDetails?.helperType || "Not specified"}</p>
-        <p><strong>Description:</strong> {userDetails?.description || "No description available"}</p>
-
-        {/* Profile Picture */}
-        {userDetails?.photo ? (
-          <div>
-            <p><strong>Profile Picture:</strong></p>
-            <img src={userDetails?.photo} alt="Profile" style={{ width: "100px", height: "100px", borderRadius: "50%" }} />
+      <div className="profile-content">
+        <div className="helper-box">
+          <h2>Want to be a Helper?</h2>
+          <p>Click below to fill out the form and become a helper.</p>
+          <button className="helper-button" onClick={navigateToForm}>
+            Submit Form
+          </button>
+        </div>
+        <div className="profile-details">
+          <div className="profile-images">
+            {userDetails?.uploadedImages && userDetails.uploadedImages.length > 0 ? (
+              <div>
+                <h3>Uploaded Images:</h3>
+                <ul className="image-gallery">
+                  {userDetails.uploadedImages.map((imageURL, index) => (
+                    <li key={index}>
+                      <img
+                        src={imageURL}
+                        alt={`Uploaded ${index}`}
+                        style={{
+                          width: "100%",
+                          maxHeight: "150px",
+                          objectFit: "cover",
+                          marginBottom: "10px",
+                          borderRadius: "10px",
+                        }}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <p>No images uploaded.</p>
+            )}
           </div>
-        ) : (
-          <p>No profile picture uploaded.</p>
-        )}
-
-        {/* Uploaded Images */}
-        {userDetails?.uploadedImages && userDetails.uploadedImages.length > 0 ? (
-          <div>
-            <h3>Uploaded Images:</h3>
-            <ul>
-              {userDetails.uploadedImages.map((imageURL, index) => (
-                <li key={index}>
-                  <img src={imageURL} alt={`Uploaded ${index}`} style={{ width: "100px", height: "100px", marginRight: "10px" }} />
-                </li>
-              ))}
-            </ul>
+          <div className="profile-info">
+            <h1>Welcome, {userDetails?.name || "User"}</h1>
+            <p>
+              <strong>Email:</strong> {userDetails?.email}
+            </p>
+            <p>
+              <strong>Phone:</strong> {userDetails?.phone || "Not provided"}
+            </p>
+            <p>
+              <strong>Location:</strong> {userDetails?.location || "Not provided"}
+            </p>
+            <p>
+              <strong>Helper Type:</strong> {userDetails?.helperType || "Not specified"}
+            </p>
+            <p>
+              <strong>Description:</strong> {userDetails?.description || "No description available"}
+            </p>
           </div>
-        ) : (
-          <p>No images uploaded.</p>
-        )}
-        
-        <button className="submit-button" onClick={navigateToForm}>
-          Click here to submit a form
-        </button>
+        </div>
       </div>
     </div>
   );
