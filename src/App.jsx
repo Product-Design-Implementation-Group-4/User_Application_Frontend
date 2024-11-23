@@ -7,6 +7,7 @@ import Login from "./components/login";
 import SignUp from "./components/register";
 import Profile from "./components/profile";
 import SubmitForm from "./components/submitForm";
+import ProfileEdit from "./components/profileEdit";
 import ProtectedRoute from "./components/protectedRoute"; // Import the ProtectedRoute component
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -45,6 +46,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <SubmitForm />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile-edit"
+                element={
+                  <ProtectedRoute>
+                    <ProfileEdit />
                   </ProtectedRoute>
                 }
               />

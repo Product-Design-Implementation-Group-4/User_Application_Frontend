@@ -107,6 +107,10 @@ function Profile() {
     navigate("/submit-form");
   };
 
+  const navigateToEdit = () => {
+    navigate("/profile-edit");
+  };
+
   return (
     <div className="app-container">
       <Navbar userDetails={userDetails} handleLogout={handleLogout} handleDeleteAccount={handleDeleteAccount} />
@@ -116,6 +120,11 @@ function Profile() {
           <p>Click below to fill out the form and become a helper.</p>
           <button className="helper-button" onClick={navigateToForm}>
             Submit Form
+          </button>
+          <h2>Want to edit profile?</h2>
+          <p>Click below to edit your profile.</p>
+          <button className="helper-button" onClick={navigateToEdit}>
+            Profile Edit
           </button>
         </div>
         <div className="profile-details">

@@ -1,0 +1,75 @@
+
+.app-container {
+  display: flex;
+  justify-content: flex-start;
+  height: 100vh; 
+  padding: 20px;
+  gap: 20px; 
+}
+
+.profile-section {
+  flex: 1; 
+  height: 100%; 
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px;
+  border-right: 2px solid #ccc;
+}
+
+.images-section {
+  width: 600px; 
+  height: 100%; 
+  padding: 20px;
+  overflow-y: auto; 
+}
+
+.image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.image-preview {
+  margin: 10px;
+}
+
+.uploaded-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.delete-image-button {
+  margin-top: 5px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+
+.profile-content button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-content button:hover {
+  background-color: #45a049;
+}
+
+.back-button {
+  padding: 10px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #e53935;
+}
