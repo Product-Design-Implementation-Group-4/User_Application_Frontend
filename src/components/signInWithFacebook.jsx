@@ -1,7 +1,7 @@
 import { FacebookAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { toast } from "react-toastify";
-import { setDoc, doc, getDoc, updateDoc } from "firebase/firestore";  
+import { setDoc, doc, getDoc } from "firebase/firestore";  
 import facebookLogo from "../assets/facebook.png";
 import { useNavigate } from "react-router-dom";
 
@@ -18,15 +18,9 @@ function SignInWithFacebook() {
           const docSnap = await getDoc(docRef);
           
           if (docSnap.exists()) {
-            await updateDoc(docRef, {
-              email: user.email,
-              firstName: user.displayName,
-              photo: user.photoURL,
-              lastName: "", 
-            });
-            toast.success("User data updated successfully", {
+            toast.success("User logged in successfully", {
               position: "top-center",
-            });
+            });;
           } else {
             await setDoc(docRef, {
               email: user.email,

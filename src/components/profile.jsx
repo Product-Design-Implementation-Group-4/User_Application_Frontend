@@ -18,17 +18,26 @@ function Profile() {
         try {
           const docRef = doc(db, "Users", user.uid);
           const docSnap = await getDoc(docRef);
-          if (docSnap.exists()) {
-            setUserDetails(docSnap.data());
+  
+          if (!docSnap.exists()) {
+            console.warn("User data not found, retrying...");
+            setTimeout(async () => {
+              const retrySnap = await getDoc(docRef);
+              if (retrySnap.exists()) {
+                setUserDetails(retrySnap.data());
+              } else {
+                alert("No user data found in Firestore.");
+              }
+            }, 1000); 
           } else {
-            alert("No user data found in Firestore.");
+            setUserDetails(docSnap.data());
           }
         } catch (error) {
           alert(`Error fetching user data: ${error.message}`);
         }
       }
     });
-
+  
     return () => unsubscribe();
   }, []);
 
@@ -79,7 +88,7 @@ function Profile() {
       await user.delete();
 
       alert("Account deleted successfully.");
-      window.location.href = "/";
+      navigate("/login");
     } catch (error) {
       if (error.code === "auth/requires-recent-login") {
         alert("Session expired. Please reauthenticate to delete your account.");
@@ -97,7 +106,7 @@ function Profile() {
     try {
       await auth.signOut();
       alert("User logged out successfully!");
-      window.location.href = "/login";
+      navigate("/login");
     } catch (error) {
       alert(`Error logging out: ${error.message}`);
     }

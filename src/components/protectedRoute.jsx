@@ -13,9 +13,7 @@ const ProtectedRoute = ({ children }) => {
     return () => unsubscribe(); 
   }, []);
 
-  if (user === null) {
-    return <div>Loading...</div>; 
-  }
+  
 
   if (!user) {
     return <Navigate to="/login" replace />; 
