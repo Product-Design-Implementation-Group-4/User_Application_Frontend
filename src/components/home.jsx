@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "../App.css"; // Assuming you have a global stylesheet
+import NavbarHome from "../components/NavbarHome";
 
 function Home() {
   const navigate = useNavigate();
@@ -14,24 +14,11 @@ function Home() {
   };
 
   return (
-    <div className="home-container">
-      <nav className="navbar">
-        <h1 className="logo">My App</h1>
-        <div className="nav-buttons">
-          <button className="nav-button" onClick={handleLogin}>
-            Login
-          </button>
-          <button className="nav-button" onClick={handleSignUp}>
-            Sign Up
-          </button>
-        </div>
-      </nav>
-      <main className="home-content">
+    <div>
+      <NavbarHome onLogin={handleLogin} onSignUp={handleSignUp} />
+      <main>
         <h1>Welcome to My App!</h1>
-        <p>
-          This is your one-stop solution for connecting with helpers and managing
-          your profile seamlessly. Sign in or sign up to get started.
-        </p>
+        <p>This is your one-stop solution for managing your profile seamlessly. Sign in or sign up to get started.</p>
       </main>
     </div>
   );
