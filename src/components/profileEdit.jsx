@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { auth, db, storage } from "./firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { deleteObject, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -14,9 +14,10 @@ function ProfileEdit() {
   const [uploadedImages, setUploadedImages] = useState([]);
   const [uploadingProfilePic, setUploadingProfilePic] = useState(false); 
   const [uploadingImages, setUploadingImages] = useState(false); 
+  const profilePicInputRef = useRef(null);
+  const imageUploadInputRef = useRef(null);  
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -40,13 +41,11 @@ function ProfileEdit() {
     return () => unsubscribe();
   }, []);
 
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditedDetails((prev) => ({ ...prev, [name]: value }));
   };
 
-  
   const handleSaveDetails = async () => {
     try {
       const user = auth.currentUser;
@@ -61,7 +60,6 @@ function ProfileEdit() {
       alert(`Error updating profile: ${error.message}`);
     }
   };
-
 
   const handleProfilePictureUpload = async (e) => {
     const file = e.target.files[0];
@@ -85,6 +83,30 @@ function ProfileEdit() {
     }
   };
 
+  const handleRemoveProfilePicture = async () => {
+    try {
+      const confirmed = window.confirm("Are you sure you want to remove the profile picture?");
+      if (!confirmed) return;
+
+      const fileRef = ref(storage, profilePicture); 
+      await deleteObject(fileRef);
+      setProfilePicture(""); 
+
+
+      if (profilePicInputRef.current) {
+        profilePicInputRef.current.value = ""; 
+      }
+      const user = auth.currentUser;
+      if (user) {
+        const docRef = doc(db, "Users", user.uid);
+        await updateDoc(docRef, { photo: "" });
+      }
+      alert("Profile picture removed successfully.");
+    } catch (error) {
+      console.error("Error removing profile picture: ", error);
+      alert("Error removing profile picture, please try again.");
+    }
+  };
 
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
@@ -109,9 +131,13 @@ function ProfileEdit() {
 
     setUploadedImages((prevState) => [...prevState, ...uploadedFiles]);
     setUploadingImages(false);
+
+
+    if (imageUploadInputRef.current) {
+      imageUploadInputRef.current.value = ""; 
+    }
   };
 
- 
   const handleSaveUploadedImages = async () => {
     try {
       const user = auth.currentUser;
@@ -126,15 +152,12 @@ function ProfileEdit() {
     }
   };
 
-
   const handleRemoveImage = async (imageURL) => {
     try {
       const confirmed = window.confirm("Are you sure you want to delete this image?");
       if (!confirmed) return;
 
-
       setUploadedImages((prevState) => prevState.filter((image) => image !== imageURL));
-
 
       const imageName = decodeURIComponent(imageURL.split("/o/").pop().split("?")[0]);
       const path = imageName.replace("users%2Fcars%2F", "users/cars/");
@@ -144,6 +167,11 @@ function ProfileEdit() {
       console.log("Image removed from storage");
 
       alert("Image removed successfully!");
+
+
+      if (imageUploadInputRef.current) {
+        imageUploadInputRef.current.value = ""; 
+      }
     } catch (error) {
       console.error("Error removing image from storage:", error);
       alert("Error removing image, please try again.");
@@ -153,27 +181,27 @@ function ProfileEdit() {
   return (
     <div>
       <div className="app-container">
-        <Navbar  />
-        <button 
-        onClick={() => navigate("/profile")} 
-        className="back-button" 
-        style={{
-          position: "absolute",
-          top: "200px",
-          left: "5px",
-          padding: "5px 5px",  
-          fontSize: "12px",      
-          backgroundColor: "#007bff", 
-          color: "white",        
-          border: "none",        
-          borderRadius: "5px", 
-          cursor: "pointer",      
-          width: "100px", 
-          height: "auto", 
-        }}
-      >
-        Home
-      </button>
+        <Navbar />
+        <div><button 
+          onClick={() => navigate("/profile")} 
+          className="back-button" 
+          style={{
+            position: "absolute",
+            top: "200px",
+            left: "5px",
+            padding: "5px 5px",  
+            fontSize: "12px",      
+            backgroundColor: "#007bff", 
+            color: "white",        
+            border: "none",        
+            borderRadius: "5px", 
+            cursor: "pointer",      
+            width: "100px", 
+            height: "auto", 
+          }}
+        >
+          Home
+        </button></div>
         <div className="profile-content">
           <div className="profile-section">
             {isEditing ? (
@@ -215,17 +243,22 @@ function ProfileEdit() {
                   />
                 </label>
 
-              
                 <div>
                   <label>Upload Profile Picture:</label>
                   <input
+                    ref={profilePicInputRef}
                     type="file"
                     accept="image/*"
                     onChange={handleProfilePictureUpload}
                   />
                   {uploadingProfilePic && <p>Uploading...</p>}
                   {profilePicture && !uploadingProfilePic && (
-                    <img src={profilePicture} alt="Profile" style={{ width: "150px", borderRadius: "50%" }} />
+                    <>
+                      <img src={profilePicture} alt="Profile" style={{ width: "150px", borderRadius: "50%" }} />
+                      <button onClick={handleRemoveProfilePicture} style={{ marginTop: "10px" }}>
+                        Remove Profile Picture
+                      </button>
+                    </>
                   )}
                 </div>
 
@@ -239,16 +272,28 @@ function ProfileEdit() {
                 <p><strong>Phone:</strong> {userDetails?.phone || "Not provided"}</p>
                 <p><strong>Location:</strong> {userDetails?.location || "Not provided"}</p>
                 <p><strong>Description:</strong> {userDetails?.description || "No description available"}</p>
-                {userDetails?.photo && <img src={userDetails.photo} alt="Profile" style={{ width: "150px", borderRadius: "50%" }} />}
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }} >
+                    {userDetails?.photo && (
+                      <img
+                        src={userDetails.photo}
+                        alt="Profile"
+                        style={{
+                          width: "150px",
+                          borderRadius: "50%",
+                          marginBottom:"20px"
+                        }}
+                      />
+                    )}
+                </div>
                 <button onClick={() => setIsEditing(true)}>Edit Profile</button>
               </>
             )}
           </div>
 
-        
           <div className="images-section">
             <h3>Upload Car Images or Others:</h3>
             <input
+              ref={imageUploadInputRef}
               type="file"
               multiple
               accept="image/*"
