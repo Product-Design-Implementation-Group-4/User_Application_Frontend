@@ -10,7 +10,7 @@ function Home() {
   };
 
   const handleSignUp = () => {
-    navigate("/signup");
+    navigate("/register");
   };
 
   return (

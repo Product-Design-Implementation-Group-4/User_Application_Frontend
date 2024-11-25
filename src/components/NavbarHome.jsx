@@ -1,11 +1,15 @@
-import React from "react";
+import React from 'react';
 import './NavbarHome.css';
+import companyLogo from '../assets/company.png'; // Import the image
 
 const NavbarHome = ({ onLogin, onSignUp }) => {
   return (
-    <nav className="navbar-home">
+    <nav className="navbar">
       <div className="navbar-logo">
-        <a href="/">Company Logo</a>
+        {/* Use the image as the logo */}
+        <a href="/">
+          <img src={companyLogo} alt="Company Logo" className="logo-image" />
+        </a>
       </div>
       <ul className="navbar-links">
         <li><a href="/">Home</a></li>
