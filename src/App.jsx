@@ -41,6 +41,7 @@ function App() {
         <div className="auth-wrapper">
           <div className="auth-inner">
             <Routes>
+            <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
               <Route
                 path="/login"
