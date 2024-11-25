@@ -88,7 +88,7 @@ function Profile() {
       await user.delete();
 
       alert("Account deleted successfully.");
-      navigate("/login");
+      navigate("/home");
     } catch (error) {
       if (error.code === "auth/requires-recent-login") {
         alert("Session expired. Please reauthenticate to delete your account.");
@@ -106,7 +106,7 @@ function Profile() {
     try {
       await auth.signOut();
       alert("User logged out successfully!");
-      navigate("/login");
+      navigate("/home");
     } catch (error) {
       alert(`Error logging out: ${error.message}`);
     }
