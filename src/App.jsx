@@ -42,7 +42,6 @@ function App() {
           <div className="auth-inner">
             <Routes>
             <Route path="/" element={<Home />} />
-              <Route path="/home" element={<Home />} />
               <Route
                 path="/login"
                 element={user ? <Navigate to="/profile" /> : <Login />}

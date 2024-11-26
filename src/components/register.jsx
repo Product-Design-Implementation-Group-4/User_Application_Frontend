@@ -38,7 +38,7 @@ function Register() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      const defaultPhotoURL = "https://firebasestorage.googleapis.com/v0/b/testandroidpro-179da.appspot.com/o/profile_pictures%2F20200226_004549156_iOS.png?alt=media&token=87c5c172-ca08-4822-a52d-090f548395f0";
+      const defaultPhotoURL = "https://firebasestorage.googleapis.com/v0/b/testandroidpro-179da.appspot.com/o/profile_pictures%2FDALL%C2%B7E%202024-11-27%2000.17.50%20-%20A%20simple%2C%20generic%20user%20avatar%20placeholder%20image.%20The%20avatar%20is%20a%20circular%20shape%20with%20a%20light%20grey%20background.%20In%20the%20center%2C%20there%20is%20a%20minimalist%20ico.webp?alt=media&token=e2c17d81-a24e-4892-a389-1e6cedbd0914";
   
       let photoURL = defaultPhotoURL;
   

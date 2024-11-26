@@ -28,7 +28,9 @@ function Navbar({ userDetails, handleLogout, handleDeleteAccount }) {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <img src={companyLogo} alt="Company Logo" />
+        <a href="/profile">
+          <img src={companyLogo} alt="Company Logo"/>
+        </a>
       </div>
       {userDetails && (
         <div className="navbar-user">

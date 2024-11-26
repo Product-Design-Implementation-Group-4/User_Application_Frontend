@@ -17,7 +17,6 @@ body {
   width: auto; /* Maintain aspect ratio */
 }
 
-
 .navbar-links {
   list-style: none;
   display: flex;
