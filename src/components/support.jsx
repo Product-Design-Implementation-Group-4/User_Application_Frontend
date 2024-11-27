@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./support.css";
 
 const Support = () => {
+  const navigate = useNavigate();
+
   const faqs = [
     { question: "What is the process for booking a move?", answer: "You can book a move online or call our support team." },
     { question: "Do you provide packing materials?", answer: "Yes, we offer high-quality packing materials for an additional fee." },
@@ -54,6 +57,11 @@ const Support = () => {
 
   return (
     <div className="support-page">
+           {/* Back Button */}
+           <button className="back-button" onClick={() => navigate(-1)}>
+        ← Back
+      </button>
+     
       <header className="support-header">
         <h1>Support</h1>
         <p>Find answers to your questions about our moving-out services or contact us for help.</p>
@@ -85,7 +93,7 @@ const Support = () => {
 
         {/* Feedback Section directly after FAQs */}
         <section className="feedback-section">
-          <h2>Suggestions & Feedback</h2>
+          <h2>Suggestions/Feedback</h2>
           <form onSubmit={handleFeedbackSubmit} className="feedback-form">
             <textarea
               value={feedback}
