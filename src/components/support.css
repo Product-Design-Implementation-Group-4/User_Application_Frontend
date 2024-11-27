@@ -1,0 +1,168 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  .support-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Header Section */
+  .support-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .support-header h1 {
+    font-size: 2.5rem;
+    color: #444;
+  }
+  
+  .support-header p {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .search-bar {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  /* FAQ Section */
+  .faq-container {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .faq-item {
+    margin-bottom: 20px;
+  }
+  
+  .faq-question {
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .faq-answer {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .feedback-buttons button {
+    background-color: #eee;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  
+  .feedback-buttons button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Categories Section */
+  .categories-container {
+    margin-top: 20px;
+  }
+  
+  .category-title {
+    font-size: 1.5rem;
+    margin-top: 30px;
+    color: #444;
+  }
+  
+  /* Contact Form */
+  .contact-form {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contact-form h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .form-submit {
+    display: inline-block;
+    background-color: #5cb85c;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .form-submit:hover {
+    background-color: #4cae4c;
+  }
+  
+  /* No Results */
+  .no-results {
+    text-align: center;
+    color: #999;
+    font-size: 1.2rem;
+  }
+  .feedback-section {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+  }
+  
+  .feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .feedback-textarea {
+    resize: none;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .feedback-submit {
+    align-self: flex-start;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .feedback-submit:hover {
+    background-color: #0056b3;
+  }
+  

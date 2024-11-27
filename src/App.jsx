@@ -4,6 +4,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 import Home from "./components/home";
+import Support from "./components/support";
 import Login from "./components/login";
 import SignUp from "./components/register";
 import Profile from "./components/profile";
@@ -42,6 +43,7 @@ function App() {
           <div className="auth-inner">
             <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/support" element={<Support />} />
               <Route
                 path="/login"
                 element={user ? <Navigate to="/profile" /> : <Login />}
