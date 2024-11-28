@@ -62,6 +62,10 @@ function Login() {
             New user? <a href="/register">Register Here</a>
           </p>
 
+          <p className="form-footer">
+            Don't want to Login. <a href="/">Go to Home</a>
+          </p>
+
           <SignInwithGoogle />
           <SignInWithFacebook />
         </form>

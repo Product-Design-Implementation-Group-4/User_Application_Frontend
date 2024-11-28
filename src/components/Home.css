@@ -1,0 +1,50 @@
+/* General Styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Layout for profile-content and UserList */
+  .profile-content {
+    display: grid;
+    grid-template-columns: 1fr; /* Adjust ratio as needed */
+    gap: 1px;
+    padding: 5px;
+    margin-top: 10px;
+  }
+  
+  /* Styling for left section (Helper Box) */
+  .helper-box {
+    background-color: #bfbbc9;
+    border-radius: 0.3cm;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 185px;
+  }
+  .helper-box:hover {
+    background-color: #cac6d6;
+  }
+  
+  /* Styling for right section (UserList) */
+  .user-list {
+    background-color: #f9f9f9;
+    padding: 10px;
+    overflow: auto;
+  }
+  
+  /* Responsive Design for Smaller Screens */
+  @media (max-width: 768px) {
+    .profile-content {
+      grid-template-columns: 1fr; /* Stacks vertically on small screens */
+    }
+    .helper-box,
+    .user-list {
+      margin-bottom: 10px;
+    }
+  }
+  

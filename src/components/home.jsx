@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import NavbarHome from "../components/NavbarHome";
 import UserList from "../components/users/UserList";
+import "./Home.css";
 
 function Home() {
   const navigate = useNavigate();
@@ -10,29 +11,25 @@ function Home() {
     navigate("/login");
   };
 
-  const handleSignUp = () => {
-    navigate("/register");
+  const handlePost = () => {
+    navigate("/login");
   };
-
   return (
     <div>
       <NavbarHome/>
       <main>
-        <h1  style={{
-            marginTop: "200px",
-          }}>Welcome to My App!</h1>
-        <button style={{
-            marginBottom: "5px",
-            height: "40px",
-            width: "100px",
-            fontSize: "16px",
-            backgroundColor: "blue",
-            color: "white",
-            borderRadius: "5px",
-            cursor: "pointer",
-            fontWeight: "bold",
-          }} className="login-button" onClick={handleLogin}>Login</button>
+        <div className="helper-box">
+          <p>
+            Want to be a Helper? Click to Log In and become a helper. <a href="/login">LOG IN</a>
+          </p>
+          <p>
+          Want to post a Job? Click to Job Post. <a href="/login">JOB POST</a>
+          </p>
+        </div>
+      
+      <div className="profile-content">
         <UserList />
+        </div>
       </main>
     </div>
   );
