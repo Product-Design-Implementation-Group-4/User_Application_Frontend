@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 
 import Home from "./components/home";
 import Support from "./components/support";
+import Contacts from "./components/contact";
 import Login from "./components/login";
 import SignUp from "./components/register";
 import Profile from "./components/profile";
@@ -45,6 +46,7 @@ function App() {
             <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/support" element={<Support />} />
+            <Route path="/contact" element={<Contacts />} />
             <Route path="/job-post" element={<JobPost/>} />
               <Route
                 path="/login"
