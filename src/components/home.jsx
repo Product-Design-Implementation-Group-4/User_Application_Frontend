@@ -23,7 +23,7 @@ function Home() {
             Want to be a Helper? Click to Log In and become a helper. <a href="/login">LOG IN</a>
           </p>
           <p>
-          Want to post a Job? Click to Job Post. <a href="/login">JOB POST</a>
+          Want to post a Job? Click to Job Post. <a href="/job-post">JOB POST</a>
           </p>
         </div>
       
