@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import { useNavigate } from "react-router-dom";
 import { doc, collection, addDoc } from "firebase/firestore";
 import { db } from "./firebase"; 
 import NavbarHome from "./NavbarHome";
@@ -46,6 +47,7 @@ function JobPost() {
     "Kronoby", "Mänttä", "Kristinestad", "Siuntio", "Mäntyharju", "Tammela", 
     "Pieksämäen Maalaiskunta", "Rusko", "Noormarkku", "Ähtäri", 
   ];
+  const navigate = useNavigate();
 
   const helperOptions = ["Person Only", "Person With Van", "Person with Car with Tow Bar"];
 
@@ -78,6 +80,7 @@ function JobPost() {
         helperType: "",
         description: "",
       });
+      navigate("/jobs");
     } catch (error) {
       alert(`Error posting job: ${error.message}`);
     }

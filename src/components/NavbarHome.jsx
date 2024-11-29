@@ -12,6 +12,7 @@ const NavbarHome = () => {
       </div>
       <ul className="navbar-links">
         <li><a href="/">Home</a></li>
+        <li><a href="/jobs">Jobs</a></li>
         <li><a href="/services">Services</a></li>
         <li><a href="/support">Support</a></li>
         <li><a href="/about">About</a></li>

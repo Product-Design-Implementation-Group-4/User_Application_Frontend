@@ -11,6 +11,7 @@ import SignUp from "./components/register";
 import Profile from "./components/profile";
 import SubmitForm from "./components/submitForm";
 import JobPost from "./components/jobPost";
+import Jobs from "./components/jobs";
 import ProfileEdit from "./components/profileEdit";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -48,6 +49,7 @@ function App() {
             <Route path="/support" element={<Support />} />
             <Route path="/contact" element={<Contacts />} />
             <Route path="/job-post" element={<JobPost/>} />
+            <Route path="/jobs" element={<Jobs/>} />
               <Route
                 path="/login"
                 element={user ? <Navigate to="/profile" /> : <Login />}
