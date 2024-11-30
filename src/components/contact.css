@@ -97,9 +97,9 @@
 }
 /* Back Button inside header */
 .back-button {
-  position: absolute; /* Position it relative to its nearest positioned ancestor */
-  top: 10px; /* 10px from the top */
-  right: 10px; /* 10px from the right */
+  position: fixed; /* Keeps the button fixed at the same position on the screen */
+  top: 10px; /* 10px from the top of the viewport */
+  right: 10px; /* 10px from the right of the viewport */
   background-color: #903ec7;
   color: #fff;
   border: none;
@@ -114,8 +114,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000; /* Ensure it stays above other elements */
 }
 
 .back-button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Change background color on hover */
 }
