@@ -1,0 +1,158 @@
+.about-page {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    color: #333;
+    background-color: #f9f9f9;
+  }
+  
+  .about-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  /* Main Header */
+  .about-header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #5a4fcf; /* Bold Purple */
+  }
+  
+  /* Sub-header */
+  .about-header p {
+    font-size: 18px;
+    color: #666;
+  }
+  
+  /* Section Container */
+  .about-section {
+    margin-bottom: 30px;
+  }
+  
+  /* Section Headers */
+  .about-section h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  
+  /* Unique Colors for Each Section Header */
+  .about-section h2#mission { /* Mission Section */
+    color: #007bff; /* Blue for trust and professionalism */
+  }
+  
+  .about-section h2#vision { /* Vision Section */
+    color: #28a745; /* Green for growth and positive outlook */
+  }
+  
+  .about-section h2#values { /* Values Section */
+    color: #ffc107; /* Amber for energy and warmth */
+  }
+  
+  .about-section h2#why-choose { /* Why Choose Us Section */
+    color: #e83e8c; /* Pink for attracting attention and boldness */
+  }
+  
+  .about-section h2#story { /* Our Story Section */
+    color: #fd7e14; /* Orange for friendliness and approachability */
+  }
+  
+  /* Paragraphs */
+  .about-section p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  /* Bullet List Styling */
+  .about-section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .about-section ul li {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #444;
+  }
+  
+  /* Unique List Styling for "Why Choose Us" */
+  .why-choose-list {
+    list-style-type: square;
+  }
+  
+  /* Footer Section */
+.about-footer {
+  text-align: center;
+  margin-top: 40px; /* Adds spacing from the previous section */
+  font-size: 16px;
+  color: #333; /* Standard text color */
+  padding: 20px;
+  background-color: #f4f4f4; /* Light background to distinguish footer */
+  border-top: 2px solid #ddd; /* Subtle border to separate from content */
+}
+
+.about-footer p {
+  margin: 0; /* Removes default margin around the paragraph */
+  font-size: 18px; /* Slightly larger font for readability */
+  color: #444; /* Darker text color for the paragraph */
+}
+
+/* Styling for the Contact Button */
+.about-footer button {
+  background-color: #5a4fcf; /* A bold purple button */
+  color: #fff; /* White text for the button */
+  border: none;
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px 20px; /* Adds space inside the button */
+  font-size: 16px;
+  height: 40px; /* Small height */
+  width: 120px; /* Square button */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-left: 10px; /* Space between the text and button */
+}
+
+.about-footer button:hover {
+  background-color: #4b3bb0; /* Darker purple when hovered */
+  transform: scale(1.05); /* Slightly enlarges the button on hover */
+}
+
+.about-footer button:focus {
+  outline: none; /* Removes the default focus outline */
+  box-shadow: 0 0 0 2px #903ec7; /* Adds a purple border around the button when focused */
+}
+
+.about-footer a {
+  color: #5a4fcf; /* Matching link color with button */
+  text-decoration: none;
+}
+
+.about-footer a:hover {
+  text-decoration: underline; /* Adds an underline when hovered */
+}
+
+    /* Back Button inside header */
+    .back-button {
+        position: fixed; /* Keeps the button fixed at the same position on the screen */
+        top: 10px; /* 10px from the top of the viewport */
+        right: 10px; /* 10px from the right of the viewport */
+        background-color:#28a745 !important; 
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        padding: 3px 6px; /* Reduced padding for smaller size */
+        font-size: 10px; /* Smaller font size */
+        height: 40px; /* Small height */
+        width: 50px; /* Square button */
+        line-height: 14px; /* Adjusted line height to center text vertically */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000; /* Ensure it stays above other elements */
+      }
+      
+      .back-button:hover {
+        background-color:#218838 !important; /* Change background color on hover */
+      }
+      
