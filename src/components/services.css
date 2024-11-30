@@ -105,4 +105,27 @@
   .action-button:hover {
     background-color: #0056b3;
   }
-  
+  /* Back Button inside header */
+.back-button {
+  position: absolute; /* Position it relative to its nearest positioned ancestor */
+  top: 10px; /* 10px from the top */
+  right: 10px; /* 10px from the right */
+  background-color: #903ec7;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 3px 6px; /* Reduced padding for smaller size */
+  font-size: 10px; /* Smaller font size */
+  height: 40px; /* Small height */
+  width: 50px; /* Square button */
+  line-height: 14px; /* Adjusted line height to center text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Services.css";
 
 const services = [
@@ -31,6 +32,7 @@ const services = [
 ];
 
 const Services = () => {
+  const navigate = useNavigate();
   const [expandedIndex, setExpandedIndex] = useState(null);
 
   const toggleDetails = (index) => {
@@ -39,6 +41,9 @@ const Services = () => {
 
   return (
     <div className="services-page">
+        <button className="back-button" onClick={() => navigate(-1)}>
+        ← Back
+      </button>
       <h1 className="services-title">Our Moving Services</h1>
       <p className="services-description">
         Explore our moving services tailored to fit your needs!
