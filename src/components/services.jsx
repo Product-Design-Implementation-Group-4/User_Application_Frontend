@@ -11,9 +11,11 @@ const services = [
       "Our Helping by Person service provides you with skilled and reliable movers to ensure a smooth and stress-free moving experience. Whether it's packing, loading, or unloading, our team is here to help.",
   },
   {
-    type: "Helping by Person and Car",
+    type: "Helping by Person and Car with Tow Hook",
+    flexibility: "This service can be with or without trailer, based on necessity.",
     description: "Get help from a person with a car for smaller loads and quick transport.",
     icon: "🚗",
+    flexibilityIcon: "🔄",
     details: "Ideal for small apartments or quick moves within the city.",
     learnMoreText:
       "Our Helping by Person and Car service is perfect for small moves. A skilled mover will assist you with packing and transportation using a compact and efficient car.",
@@ -49,6 +51,12 @@ const Services = () => {
               <span className="service-icon">{service.icon}</span>
               <span className="service-type">{service.type}</span>
             </div>
+            {service.flexibility && (
+              <div className="service-flexibility">
+                <span className="flexibility-icon">🔄</span>
+                <span>{service.flexibility}</span>
+              </div>
+            )}
             <p className="service-short-description">{service.description}</p>
 
             {expandedIndex === index && (
