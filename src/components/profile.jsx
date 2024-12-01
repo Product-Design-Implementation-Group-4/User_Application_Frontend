@@ -125,7 +125,7 @@ function Profile() {
       <Navbar userDetails={userDetails} handleLogout={handleLogout} handleDeleteAccount={handleDeleteAccount} />
       <div>
   <button
-    onClick={() => navigate(-1)}
+    onClick={() => navigate("/")}
     className="back-button"
     style={{
       position: "fixed", // Corrected syntax for position
