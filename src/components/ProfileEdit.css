@@ -123,13 +123,13 @@
 
 @media (max-width: 768px) {
   .profile-edit-container {
-    flex-direction: column; /* Stack the profile and images sections on smaller screens */
+    flex-direction: column;
     align-items: center;
   }
 
   .profile-edit-profile-section,
   .profile-edit-images-section {
-    width: 90%; /* Take up most of the width on smaller screens */
+    width: 90%;
   }
 
   .profile-edit-profile-section button {

@@ -127,7 +127,7 @@ function Profile() {
     handleDeleteAccount={handleDeleteAccount}
   />
   <div className="profile-euniq-content">
-    {/* Helper Box */}
+    
     <div className="profile-euniq-helper-box">
       <h2>Want to be a Helper?</h2>
       <p>Click below to fill out the form and become a helper.</p>
@@ -141,9 +141,9 @@ function Profile() {
       </button>
     </div>
 
-    {/* Right Side Content */}
+    
     <div className="profile-euniq-right">
-      {/* Profile Images */}
+     
       <div className="profile-euniq-images">
         {userDetails?.uploadedImages && userDetails.uploadedImages.length > 0 ? (
           <div>
@@ -161,7 +161,7 @@ function Profile() {
         )}
       </div>
 
-      {/* Profile Details */}
+      
       <div className="profile-euniq-info-main">
         <h1>
           Welcome

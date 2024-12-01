@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getFirestore, collection, query, orderBy, limit, startAfter, getDocs } from "firebase/firestore"; 
+import { useNavigate } from "react-router-dom";
 import NavbarHome from "../components/NavbarHome";
 import "./Jobs.css";
 
 function Jobs() {
+  const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
   const [lastVisible, setLastVisible] = useState(null); 
   const [loading, setLoading] = useState(false);

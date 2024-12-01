@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import NavbarHome from "../components/NavbarHome";
 import "./support.css";
 
 const Support = () => {
@@ -57,10 +58,7 @@ const Support = () => {
 
   return (
     <div className="support-page">
-           {/* Back Button */}
-           <button className="back-button" onClick={() => navigate(-1)}>
-        ← Back
-      </button>
+           <NavbarHome />
      
       <header className="support-header">
         <h1>Support</h1>

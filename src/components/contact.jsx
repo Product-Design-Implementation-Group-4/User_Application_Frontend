@@ -4,6 +4,7 @@ import junayedImage from "../assets/company.png";
 import shammiImage from "../assets/facebook.png";
 import pankajImage from "../assets/pankaj.jpeg";
 import { useNavigate } from "react-router-dom";
+import NavbarHome from "../components/NavbarHome";
 
 const contacts = [
   {
@@ -34,10 +35,7 @@ const Contacts = () => {
 
   return (
     <div className="contact-page">
-      {/* Back Button */}
-      <button className="back-button" onClick={() => navigate(-1)}>
-        ← Back
-      </button>
+      <NavbarHome />
 
       {/* Header Section */}
       <header className="contact-header">

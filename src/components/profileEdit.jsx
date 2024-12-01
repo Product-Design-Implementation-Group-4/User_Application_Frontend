@@ -204,6 +204,7 @@ function ProfileEdit() {
   >
     Home
   </button></div>
+ 
   <div className="profile-edit-content">
     <div className="profile-edit-profile-section">
       {isEditing ? (
