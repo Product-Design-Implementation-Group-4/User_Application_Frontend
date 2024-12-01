@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getFirestore, collection, query, orderBy, limit, startAfter, getDocs } from "firebase/firestore"; 
 import { useNavigate } from "react-router-dom";
-import NavbarHome from "../components/NavbarHome";
+import Navbar from "../components/Navbar";
 import "./Jobs.css";
 
 function Jobs() {
@@ -48,7 +48,7 @@ function Jobs() {
 
   return (
     <div>
-      <NavbarHome />
+      <Navbar />
       <div>
   <button
     onClick={() => navigate(-1)}
