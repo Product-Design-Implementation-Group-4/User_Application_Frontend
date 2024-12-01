@@ -149,7 +149,7 @@ function SubmitForm() {
   return (
     <div>
       <button 
-        onClick={() => navigate("/profile")} 
+        onClick={() => navigate("/")} 
         className="back-button" 
         style={{
           position: "absolute",
