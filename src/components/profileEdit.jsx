@@ -183,7 +183,7 @@ function ProfileEdit() {
       <div className="app-container">
         <Navbar />
         <div><button 
-          onClick={() => navigate("/profile")} 
+          onClick={() => navigate("/")} 
           className="back-button" 
           style={{
             position: "absolute",
