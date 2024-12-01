@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getFirestore, collection, query, orderBy, limit, startAfter, getDocs } from "firebase/firestore"; 
+import { useNavigate } from "react-router-dom";
 import NavbarHome from "../components/NavbarHome";
 import "./Jobs.css";
 
 function Jobs() {
+  const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
   const [lastVisible, setLastVisible] = useState(null); 
   const [loading, setLoading] = useState(false);
@@ -47,6 +49,28 @@ function Jobs() {
   return (
     <div>
       <NavbarHome />
+      <div>
+  <button
+    onClick={() => navigate(-1)}
+    className="back-button"
+    style={{
+      position: "fixed", // Corrected syntax for position
+      top: "200px", // Distance from the top
+      right: "5px", // Distance from the right
+      padding: "5px 5px", // Padding for the button
+      fontSize: "12px", // Font size for text
+      backgroundColor: "#007bff", // Button background color
+      color: "white", // Text color
+      border: "none", // Remove border
+      borderRadius: "5px", // Rounded corners
+      cursor: "pointer", // Pointer cursor for better UX
+      width: "100px", // Button width
+      height: "auto", // Auto height to fit content
+    }}
+  >
+    Back
+  </button>
+</div>
       <div className="jobs-container">
         <h1>Job Listings</h1>
         <div className="jobs-grid">

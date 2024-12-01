@@ -182,26 +182,52 @@ function ProfileEdit() {
     <div>
       <div className="app-container">
         <Navbar />
-        <div><button 
-          onClick={() => navigate("/")} 
-          className="back-button" 
-          style={{
-            position: "absolute",
-            top: "200px",
-            left: "5px",
-            padding: "5px 5px",  
-            fontSize: "12px",      
-            backgroundColor: "#007bff", 
-            color: "white",        
-            border: "none",        
-            borderRadius: "5px", 
-            cursor: "pointer",      
-            width: "100px", 
-            height: "auto", 
-          }}
-        >
-          Home
-        </button></div>
+        
+<div>
+  <button
+    onClick={() => navigate("/")}
+    className="home-button"
+    style={{
+      position: "fixed", // Corrected syntax for position
+      top: "200px", // Distance from the top
+      left: "5px", // Distance from the left
+      padding: "5px 5px", // Padding for the button
+      fontSize: "12px", // Font size for text
+      backgroundColor: "#007bff", // Button background color
+      color: "white", // Text color
+      border: "none", // Remove border
+      borderRadius: "5px", // Rounded corners
+      cursor: "pointer", // Pointer cursor for better UX
+      width: "100px", // Button width
+      height: "auto", // Auto height to fit content
+    }}
+  >
+    Home
+  </button>
+</div>
+<div>
+  <button
+    onClick={() => navigate(-1)}
+    className="back-button"
+    style={{
+      position: "fixed", // Corrected syntax for position
+      top: "200px", // Distance from the top
+      right: "5px", // Distance from the right
+      padding: "5px 5px", // Padding for the button
+      fontSize: "12px", // Font size for text
+      backgroundColor: "#007bff", // Button background color
+      color: "white", // Text color
+      border: "none", // Remove border
+      borderRadius: "5px", // Rounded corners
+      cursor: "pointer", // Pointer cursor for better UX
+      width: "100px", // Button width
+      height: "auto", // Auto height to fit content
+    }}
+  >
+    Back
+  </button>
+</div>
+
         <div className="profile-content">
           <div className="profile-section">
             {isEditing ? (
