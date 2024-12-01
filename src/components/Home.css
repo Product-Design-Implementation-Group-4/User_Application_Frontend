@@ -8,7 +8,7 @@
 
 .home__helper-box {
   position: sticky; /* Sticky positioning to retain layout */
-  top: 185px; /* Maintains the starting position */
+  top: 180px; /* Maintains the starting position */
   background-color: #bfbbc9;
   border-radius: 0.3cm;
   padding: 20px;
