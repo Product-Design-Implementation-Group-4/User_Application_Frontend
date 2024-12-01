@@ -6,7 +6,6 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom"; 
 import "../App.css";
-import "../index.css";
 
 function Register() {
   const [email, setEmail] = useState("");

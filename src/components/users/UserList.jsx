@@ -28,14 +28,15 @@ function UserList() {
   const totalPages = Math.ceil(users.length / itemsPerPage);
 
   return (
-    <div className="user-list">
-      <div className="user-cards">
+    <div className="user-list__container">
+      <div className="user-list__cards">
         {currentUsers.map((user) => (
           <UserCard key={user.id} user={user} />
         ))}
       </div>
-      <div className="pagination">
+      <div className="user-list__pagination">
         <button
+          className="user-list__pagination-button"
           disabled={currentPage === 1}
           onClick={() => setCurrentPage((prev) => prev - 1)}
         >
@@ -44,13 +45,16 @@ function UserList() {
         {Array.from({ length: totalPages }, (_, index) => (
           <button
             key={index + 1}
-            className={currentPage === index + 1 ? "active" : ""}
+            className={`user-list__pagination-button ${
+              currentPage === index + 1 ? "user-list__pagination-button--active" : ""
+            }`}
             onClick={() => setCurrentPage(index + 1)}
           >
             {index + 1}
           </button>
         ))}
         <button
+          className="user-list__pagination-button"
           disabled={currentPage === totalPages}
           onClick={() => setCurrentPage((prev) => prev + 1)}
         >

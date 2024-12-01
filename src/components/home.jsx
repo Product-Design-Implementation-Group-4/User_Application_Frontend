@@ -6,29 +6,21 @@ import "./Home.css";
 
 function Home() {
   const navigate = useNavigate();
-
-  const handleLogin = () => {
-    navigate("/login");
-  };
-
-  const handlePost = () => {
-    navigate("/login");
-  };
   return (
     <div>
-      <NavbarHome/>
+      <NavbarHome />
       <main>
-        <div className="helper-box">
+        <div className="home__helper-box">
           <p>
             Want to be a Helper? Click to Log In and become a helper. <a href="/login">LOG IN</a>
           </p>
           <p>
-          Want to post a Job? Click to Job Post. <a href="/job-post">JOB POST</a>
+            Want to post a Job? Click to Job Post. <a href="/job-post">JOB POST</a>
           </p>
         </div>
       
-      <div className="profile-content">
-        <UserList />
+        <div className="home__profile-content">
+          <UserList />
         </div>
       </main>
     </div>

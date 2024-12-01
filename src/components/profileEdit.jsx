@@ -4,7 +4,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { deleteObject, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-import '../ProfileEdit.css';
+import './ProfileEdit.css';
 
 function ProfileEdit() {
   const [userDetails, setUserDetails] = useState(null);
@@ -55,6 +55,7 @@ function ProfileEdit() {
         setUserDetails((prev) => ({ ...prev, ...editedDetails, photo: profilePicture, uploadedImages }));
         setIsEditing(false); 
         alert("Profile updated successfully!");
+        navigate("/profile");
       }
     } catch (error) {
       alert(`Error updating profile: ${error.message}`);
@@ -146,6 +147,7 @@ function ProfileEdit() {
         await updateDoc(docRef, { uploadedImages });
         setUserDetails((prev) => ({ ...prev, uploadedImages }));
         alert("Uploaded images saved successfully!");
+        navigate("/profile");
       }
     } catch (error) {
       alert(`Error saving images: ${error.message}`);
@@ -179,145 +181,144 @@ function ProfileEdit() {
   };
 
   return (
-    <div>
-      <div className="app-container">
-        <Navbar />
-        <div><button 
-          onClick={() => navigate("/profile")} 
-          className="back-button" 
-          style={{
-            position: "absolute",
-            top: "200px",
-            left: "5px",
-            padding: "5px 5px",  
-            fontSize: "12px",      
-            backgroundColor: "#007bff", 
-            color: "white",        
-            border: "none",        
-            borderRadius: "5px", 
-            cursor: "pointer",      
-            width: "100px", 
-            height: "auto", 
-          }}
-        >
-          Home
-        </button></div>
-        <div className="profile-content">
-          <div className="profile-section">
-            {isEditing ? (
-              <>
-                <h1>Edit Profile</h1>
-                <label>
-                  Name:
-                  <input
-                    type="text"
-                    name="name"
-                    value={editedDetails.name || ""}
-                    onChange={handleInputChange}
-                  />
-                </label>
-                <label>
-                  Phone:
-                  <input
-                    type="text"
-                    name="phone"
-                    value={editedDetails.phone || ""}
-                    onChange={handleInputChange}
-                  />
-                </label>
-                <label>
-                  Location:
-                  <input
-                    type="text"
-                    name="location"
-                    value={editedDetails.location || ""}
-                    onChange={handleInputChange}
-                  />
-                </label>
-                <label>
-                  Description:
-                  <textarea
-                    name="description"
-                    value={editedDetails.description || ""}
-                    onChange={handleInputChange}
-                  />
-                </label>
+    
+      <div className="profile-edit-container">
+  <Navbar />
+  <div><button 
+    onClick={() => navigate("/profile")} 
+    className="profile-edit-back-button" 
+    style={{
+      position: "absolute",
+      top: "200px",
+      left: "5px",
+      padding: "5px 5px",  
+      fontSize: "12px",      
+      backgroundColor: "#007bff", 
+      color: "white",        
+      border: "none",        
+      borderRadius: "5px", 
+      cursor: "pointer",      
+      width: "100px", 
+      height: "auto", 
+    }}
+  >
+    Home
+  </button></div>
+  <div className="profile-edit-content">
+    <div className="profile-edit-profile-section">
+      {isEditing ? (
+        <>
+          <h1>Edit Profile</h1>
+          <label>
+            Name:
+            <input
+              type="text"
+              name="name"
+              value={editedDetails.name || ""}
+              onChange={handleInputChange}
+            />
+          </label>
+          <label>
+            Phone:
+            <input
+              type="text"
+              name="phone"
+              value={editedDetails.phone || ""}
+              onChange={handleInputChange}
+            />
+          </label>
+          <label>
+            Location:
+            <input
+              type="text"
+              name="location"
+              value={editedDetails.location || ""}
+              onChange={handleInputChange}
+            />
+          </label>
+          <label>
+            Description:
+            <textarea
+              name="description"
+              value={editedDetails.description || ""}
+              onChange={handleInputChange}
+            />
+          </label>
 
-                <div>
-                  <label>Upload Profile Picture:</label>
-                  <input
-                    ref={profilePicInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleProfilePictureUpload}
-                  />
-                  {uploadingProfilePic && <p>Uploading...</p>}
-                  {profilePicture && !uploadingProfilePic && (
-                    <>
-                      <img src={profilePicture} alt="Profile" style={{ width: "150px", borderRadius: "50%" }} />
-                      <button onClick={handleRemoveProfilePicture} style={{ marginTop: "10px" }}>
-                        Remove Profile Picture
-                      </button>
-                    </>
-                  )}
-                </div>
-
-                <button onClick={handleSaveDetails}>Save Profile</button>
-                <button onClick={() => setIsEditing(false)}>Cancel</button>
-              </>
-            ) : (
+          <div>
+            <label>Upload Profile Picture:</label>
+            <input
+              ref={profilePicInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleProfilePictureUpload}
+            />
+            {uploadingProfilePic && <p>Uploading...</p>}
+            {profilePicture && !uploadingProfilePic && (
               <>
-                <h1>Welcome, {userDetails?.name || "User"}</h1>
-                <p><strong>Email:</strong> {userDetails?.email}</p>
-                <p><strong>Phone:</strong> {userDetails?.phone || "Not provided"}</p>
-                <p><strong>Location:</strong> {userDetails?.location || "Not provided"}</p>
-                <p><strong>Description:</strong> {userDetails?.description || "No description available"}</p>
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }} >
-                    {userDetails?.photo && (
-                      <img
-                        src={userDetails.photo}
-                        alt="Profile"
-                        style={{
-                          width: "150px",
-                          borderRadius: "50%",
-                          marginBottom:"20px"
-                        }}
-                      />
-                    )}
-                </div>
-                <button onClick={() => setIsEditing(true)}>Edit Profile</button>
+                <img src={profilePicture} alt="Profile" style={{ width: "150px", borderRadius: "50%" }} />
+                <button onClick={handleRemoveProfilePicture} style={{ marginTop: "10px" }}>
+                  Remove Profile Picture
+                </button>
               </>
             )}
           </div>
 
-          <div className="images-section">
-            <h3>Upload Car Images or Others:</h3>
-            <input
-              ref={imageUploadInputRef}
-              type="file"
-              multiple
-              accept="image/*"
-              onChange={handleImageUpload}
-            />
-            {uploadingImages && <p>Uploading images...</p>}
-            <div className="image-preview-container">
-              {uploadedImages.map((imageURL, index) => (
-                <div key={index} className="image-preview">
-                  <img src={imageURL} alt={`Uploaded ${index}`} className="uploaded-image" />
-                  <button
-                    className="delete-image-button"
-                    onClick={() => handleRemoveImage(imageURL)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))}
-            </div>
-            <button onClick={handleSaveUploadedImages}>Save Images</button>
+          <button onClick={handleSaveDetails}>Save Profile</button>
+          <button onClick={() => setIsEditing(false)}>Cancel</button>
+        </>
+      ) : (
+        <>
+          <h1>{userDetails?.name || userDetails?.firstName}</h1>
+          <p><strong>Email:</strong> {userDetails?.email}</p>
+          <p><strong>Phone:</strong> {userDetails?.phone || "Not provided"}</p>
+          <p><strong>Location:</strong> {userDetails?.location || "Not provided"}</p>
+          <p><strong>Description:</strong> {userDetails?.description || "No description available"}</p>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }} >
+              {userDetails?.photo && (
+                <img
+                  src={userDetails.photo}
+                  alt="Profile"
+                  style={{
+                    width: "150px",
+                    borderRadius: "50%",
+                    marginBottom:"20px"
+                  }}
+                />
+              )}
           </div>
-        </div>
-      </div>
+          <button onClick={() => setIsEditing(true)}>Edit Profile</button>
+        </>
+      )}
     </div>
+
+    <div className="profile-edit-images-section">
+      <h3>Upload Car Images or Others:</h3>
+      <input
+        ref={imageUploadInputRef}
+        type="file"
+        multiple
+        accept="image/*"
+        onChange={handleImageUpload}
+      />
+      {uploadingImages && <p>Uploading images...</p>}
+      <div className="profile-edit-image-preview-container">
+        {uploadedImages.map((imageURL, index) => (
+          <div key={index} className="profile-edit-image-preview">
+            <img src={imageURL} alt={`Uploaded ${index}`} className="profile-edit-uploaded-image" />
+            <button
+              className="profile-edit-delete-image-button"
+              onClick={() => handleRemoveImage(imageURL)}
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+      </div>
+      <button onClick={handleSaveUploadedImages}>Save Images</button>
+    </div>
+  </div>
+</div>
   );
 }
 

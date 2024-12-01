@@ -5,8 +5,7 @@ import { deleteObject, ref, getMetadata } from "firebase/storage";
 import { reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-import "../App.css";
-import "../index.css";
+import "./Profile.css";
 
 function Profile() {
   const [userDetails, setUserDetails] = useState(null);
@@ -121,70 +120,66 @@ function Profile() {
   };
 
   return (
-    <div className="app-container">
-      <Navbar userDetails={userDetails} handleLogout={handleLogout} handleDeleteAccount={handleDeleteAccount} />
-      <div className="profile-content">
-        <div className="helper-box">
-          <h2>Want to be a Helper?</h2>
-          <p>Click below to fill out the form and become a helper.</p>
-          <button className="helper-button" onClick={navigateToForm}>
-            Submit Form
-          </button>
-          <h2>Want to edit profile?</h2>
-          <p>Click below to edit your profile.</p>
-          <button className="helper-button" onClick={navigateToEdit}>
-            Profile Edit
-          </button>
-        </div>
-        <div className="profile-details">
-          <div className="profile-images">
-            {userDetails?.uploadedImages && userDetails.uploadedImages.length > 0 ? (
-              <div>
-                <h3>Uploaded Images:</h3>
-                <ul className="image-gallery">
-                  {userDetails.uploadedImages.map((imageURL, index) => (
-                    <li key={index}>
-                      <img
-                        src={imageURL}
-                        alt={`Uploaded ${index}`}
-                        style={{
-                          width: "100%",
-                          maxHeight: "150px",
-                          objectFit: "cover",
-                          marginBottom: "10px",
-                          borderRadius: "10px",
-                        }}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : (
-              <p>No images uploaded.</p>
-            )}
+    <div className="profile-euniq-container">
+  <Navbar
+    userDetails={userDetails}
+    handleLogout={handleLogout}
+    handleDeleteAccount={handleDeleteAccount}
+  />
+  <div className="profile-euniq-content">
+    {/* Helper Box */}
+    <div className="profile-euniq-helper-box">
+      <h2>Want to be a Helper?</h2>
+      <p>Click below to fill out the form and become a helper.</p>
+      <button className="profile-euniq-helper-button" onClick={navigateToForm}>
+        Submit Form
+      </button>
+      <h2>Want to edit profile?</h2>
+      <p>Click below to edit your profile.</p>
+      <button className="profile-euniq-helper-button" onClick={navigateToEdit}>
+        Profile Edit
+      </button>
+    </div>
+
+    {/* Right Side Content */}
+    <div className="profile-euniq-right">
+      {/* Profile Images */}
+      <div className="profile-euniq-images">
+        {userDetails?.uploadedImages && userDetails.uploadedImages.length > 0 ? (
+          <div>
+            <h3>Uploaded Images:</h3>
+            <ul className="profile-euniq-image-gallery">
+              {userDetails.uploadedImages.map((imageURL, index) => (
+                <li key={index}>
+                  <img src={imageURL} alt={`Uploaded ${index}`} />
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="profile-info">
-            <h1>Welcome, {userDetails?.name || "User"}</h1>
-            <p>
-              <strong>Email:</strong> {userDetails?.email}
-            </p>
-            <p>
-              <strong>Phone:</strong> {userDetails?.phone || "Not provided"}
-            </p>
-            <p>
-              <strong>Location:</strong> {userDetails?.location || "Not provided"}
-            </p>
-            <p>
-              <strong>Helper Type:</strong> {userDetails?.helperType || "Not specified"}
-            </p>
-            <p>
-              <strong>Description:</strong> {userDetails?.description || "No description available"}
-            </p>
-          </div>
-        </div>
+        ) : (
+          <p>No images uploaded.</p>
+        )}
+      </div>
+
+      {/* Profile Details */}
+      <div className="profile-euniq-info-main">
+        <h1>
+          Welcome
+        </h1>
+        <h2>{" "}
+        {userDetails?.name || `${userDetails?.firstName} ${userDetails?.lastName}`}</h2>
+        <p><strong>Email: {userDetails?.email}</strong></p>
+        <p><strong>Phone: {userDetails?.phone || "Not provided"}</strong></p>
+        <p><strong>Location: {userDetails?.location || "Not provided"}</strong></p>
+        <p><strong>Helper Type: {userDetails?.helperType || "Not specified"}</strong></p>
+        <p><strong>Description: {userDetails?.description || "No description available"}</strong></p>
       </div>
     </div>
+  </div>
+</div>
+
   );
+  
 }
 
 export default Profile;
