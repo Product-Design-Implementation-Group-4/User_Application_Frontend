@@ -55,7 +55,7 @@ function Jobs() {
     className="back-button"
     style={{
       position: "fixed", // Corrected syntax for position
-      top: "200px", // Distance from the top
+      top: "150px", // Distance from the top
       right: "5px", // Distance from the right
       padding: "5px 5px", // Padding for the button
       fontSize: "12px", // Font size for text
