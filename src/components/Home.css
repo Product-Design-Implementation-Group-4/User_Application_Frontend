@@ -3,17 +3,17 @@
   grid-template-columns: 1fr;
   gap: 10px;
   padding: 5px;
-  margin-top: 200px;
+  margin-top: 150px;
 }
 
 .home__helper-box {
-  position: sticky; /* Sticky positioning to retain layout */
-  top: 180px; /* Maintains the starting position */
+  position: sticky;
+  top: 130px; 
   background-color: #bfbbc9;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px; /* Adds spacing between the helper box and other elements */
-  z-index: 10; /* Ensures it's on top when overlapping content */
+  margin-bottom: 20px;
+  z-index: 10; 
 }
 
 .home__helper-box:hover {

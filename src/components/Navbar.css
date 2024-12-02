@@ -14,7 +14,9 @@
 }
 
 .navbar-logo img {
-  height: 150px;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
 }
 
 .navbar-user {

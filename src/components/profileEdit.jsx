@@ -189,7 +189,7 @@ function ProfileEdit() {
     className="profile-edit-back-button" 
     style={{
       position: "absolute",
-      top: "200px",
+      top: "150px",
       left: "5px",
       padding: "5px 5px",  
       fontSize: "12px",      
