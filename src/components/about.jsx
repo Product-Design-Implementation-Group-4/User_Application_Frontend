@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"; // Corrected import for useNavigate
-import "./About.css";
+import "./about.css";
 import NavbarHome from "../components/NavbarHome";
 
 const About = () => {
