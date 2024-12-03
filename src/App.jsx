@@ -26,14 +26,13 @@ function App() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
-      setLoading(false); // Ensure we stop the loading state once the user state is set
+      setLoading(false); 
     });
 
     return () => unsubscribe();
   }, []);
 
   if (loading) {
-    // Show a loading spinner or message until user authentication status is determined
     return (
       <div className="loading-container">
         <h2>Loading...</h2>
