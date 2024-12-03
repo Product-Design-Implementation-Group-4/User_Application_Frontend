@@ -4,7 +4,7 @@ import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import { deleteObject, ref, getMetadata } from "firebase/storage";
 import { reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "./navbar";
 import "./Profile.css";
 
 function Profile() {

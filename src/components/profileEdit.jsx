@@ -3,7 +3,7 @@ import { auth, db, storage } from "./firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { deleteObject, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "./navbar";
 import './ProfileEdit.css';
 
 function ProfileEdit() {

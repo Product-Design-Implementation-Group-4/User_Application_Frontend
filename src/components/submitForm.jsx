@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import "../App.css";
 import "../index.css";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar"; // Assuming you have a Navbar component
+import Navbar from "./navbar";
 
 function SubmitForm() {
   const [formData, setFormData] = useState({
@@ -25,7 +25,34 @@ function SubmitForm() {
 
   const cityOptions = [
     "Helsinki", "Tampere", "Espoo", "Turku", "Vantaa", "Oulu", "Jyväskylä", "Kuopio", 
-    // Add remaining cities...
+    "Lahti", "Kouvola", "Pori", "Joensuu", "Lappeenranta", "Hämeenlinna", "Vaasa", 
+    "Seinäjoki", "Rovaniemi", "Mikkeli", "Salo", "Kotka", "Porvoo", "Kokkola", 
+    "Lohja", "Hyvinkää", "Kirkkonummi", "Järvenpää", "Rauma", "Tuusula", "Kajaani", 
+    "Savonlinna", "Kerava", "Nokia", "Kaarina", "Ylöjärvi", "Kangasala", 
+    "Jyväskylän Maalaiskunta", "Riihimäki", "Raseborg", "Imatra", "Sastamala", 
+    "Raahe", "Raisio", "Hollola", "Lempäälä", "Tornio", "Siilinjärvi", "Kurikka", 
+    "Iisalmi", "Varkaus", "Klaukkala", "Valkeakoski", "Mäntsälä", "Äänekoski", 
+    "Hamina", "Kuusankoski", "Korsholm", "Lieto", "Heinola", "Kemi", "Sipoo", 
+    "Jämsä", "Jakobstad", "Naantali", "Haukipudas", "Laukaa", "Pirkkala", 
+    "Pieksämäki", "Kempele", "Forssa", "Janakkala", "Kauhava", "Orimattila", 
+    "Loimaa", "Pielisjärvi", "Uusikaupunki", "Sippola", "Vammala", "Kontiolahti", 
+    "Kuusamo", "Pargas", "Ylivieska", "Nastola", "Lapua", "Loviisa", "Kauhajoki", 
+    "Kiiminki", "Ulvila", "Ilmajoki", "Kalajoki", "Liperi", "Eura", "Alavus", 
+    "Mikkelin Maalaiskunta", "Vehkalahti", "Kankaanpää", "Sääminki", "Mariehamn", 
+    "Lieksa", "Valkeala", "Pedersöre", "Nivala", "Nurmo", "Kivistö", "Joutseno", 
+    "Paimio", "Sotkamo", "Hämeenkyrö", "Huittinen", "Liminka", "Muurame", 
+    "Alajärvi", "Lapinlahti", "Leppävirta", "Saarijärvi", "Ii", "Oulunsalo", 
+    "Kitee", "Masku", "Kauniainen", "Eurajoki", "Orivesi", "Närpes", "Hattula", 
+    "Keuruu", "Muhos", "Somero", "Halikko", "Karis", "Sodankylä", "Karkkila", 
+    "Pöytyä", "Laitila", "Hanko", "Hausjärvi", "Keminmaa", "Elimäki", "Pudasjärvi", 
+    "Loppi", "Laihia", "Toijala", "Suomussalmi", "Nurmes", "Jalasjärvi", 
+    "Nurmijärvi", "Mynämäki", "Kuhmo", "Oulainen", "Kiuruvesi", "Kokemäki", 
+    "Kemijärvi", "Nykarleby", "Rajamäki", "Jämsänkoski", "Tyrvää", "Pyhäselkä", 
+    "Ikaalinen", "Outokumpu", "Säkylä", "Suonenjoki", "Virrat", "Inari", "Tyrnävä", 
+    "Parkano", "Harjavalta", "Vörå", "Haapajärvi", "Eno", "Vanaja", "Haapavesi", 
+    "Jokela", "Pälkäne", "Piikkiö", "Iitti", "Nilsiä", "Kittilä", "Viitasaari", 
+    "Kronoby", "Mänttä", "Kristinestad", "Siuntio", "Mäntyharju", "Tammela", 
+    "Pieksämäen Maalaiskunta", "Rusko", "Noormarkku", "Ähtäri", 
   ];
 
   const helperOptions = ["Person", "Van", "Car with Tow Bar"];
