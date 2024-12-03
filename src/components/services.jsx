@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavbarHome from "../components/NavbarHome";
-import "./Services.css";
+import "./services.css";
 
 const services = [
   {
