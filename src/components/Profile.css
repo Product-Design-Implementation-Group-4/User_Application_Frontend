@@ -1,10 +1,9 @@
 .profile-euniq-container {
-  margin-top: 10px;
   padding: 2em;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 160px;
+  margin-top: 130px;
 }
 
 .profile-euniq-content {

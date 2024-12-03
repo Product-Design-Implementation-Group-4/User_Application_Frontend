@@ -108,14 +108,14 @@ function SubmitForm() {
   const helperSelectOptions = helperOptions.map((helper) => ({ value: helper, label: helper }));
 
   return (
-    <div className="app-container">
+    <div className="app-container" >
       <Navbar />
       <button
         onClick={() => navigate("/profile")}
         className="home-button"
         style={{
           position: "fixed", 
-          top: "200px", 
+          top: "150px", 
           left: "5px", 
           padding: "5px 5px", 
           fontSize: "12px",
@@ -130,7 +130,7 @@ function SubmitForm() {
       >
         Home
       </button>
-      <div className="profile-container">
+      <div className="profile-container" style={{ marginTop: "140px" }}>
         <form onSubmit={handleSubmit} className="profile-form">
           <div className="form-group">
             <label>Name:</label>
