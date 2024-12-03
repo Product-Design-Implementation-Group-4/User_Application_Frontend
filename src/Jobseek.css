@@ -1,0 +1,59 @@
+.job-seeker-form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .job-seeker-form h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .job-seeker-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .job-seeker-form div {
+    margin-bottom: 15px;
+  }
+  
+  .job-seeker-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .job-seeker-form input,
+  .job-seeker-form select,
+  .job-seeker-form textarea {
+    padding: 10px;
+    font-size: 1rem;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .job-seeker-form button {
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .job-seeker-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .job-seeker-form input[type="file"] {
+    border: none;
+    padding: 5px;
+  }
+  

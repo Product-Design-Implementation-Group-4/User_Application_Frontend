@@ -1,0 +1,64 @@
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px 30px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center; 
+    margin-bottom: -30px; 
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 190px;
+}
+
+.job-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input,
+textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 90%; 
+    margin: 0 auto; 
+}
+
+textarea {
+    resize: vertical;
+}
+
+.submit-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 12px; 
+    font-size: 14px; 
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+    align-self: center;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,36 @@
+.user-list__container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.user-list__cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  justify-content: center;
+}
+
+.user-list__pagination {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  width: 500px;
+  margin: 20px auto;
+}
+
+.user-list__pagination-button {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.user-list__pagination-button--active {
+  background-color: #007bff;
+  color: white;
+}
+
+.user-list__pagination-button--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

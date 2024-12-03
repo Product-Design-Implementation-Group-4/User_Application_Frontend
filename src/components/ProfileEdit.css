@@ -1,0 +1,139 @@
+.profile-edit-container {
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: flex-start; /* Align content at the top */
+  height: 100vh; /* Full height of the viewport */
+  padding: 5px;
+  gap: 40px; /* Adds space between the profile and image sections */
+  box-sizing: border-box; /* Include padding in height calculations */
+}
+
+.profile-edit-profile-section {
+  width: 600px; /* Set a fixed width for the profile section */
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-edit-images-section {
+  flex: 1; /* Takes the remaining space */
+  width: 600px; /* Set a fixed width for the images section */
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.profile-edit-profile-section h1,
+.profile-edit-images-section h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.profile-edit-profile-section label,
+.profile-edit-profile-section textarea,
+.profile-edit-profile-section input {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.profile-edit-profile-section input[type="text"],
+.profile-edit-profile-section input[type="file"],
+.profile-edit-profile-section textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  color: #333;
+}
+
+.profile-edit-profile-section input[type="file"] {
+  padding: 0;
+}
+
+.profile-edit-profile-section button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.profile-edit-profile-section button:hover {
+  background-color: #0056b3;
+}
+
+.profile-edit-image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Adds spacing between the images */
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.profile-edit-image-preview {
+  position: relative;
+}
+
+.profile-edit-uploaded-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 50px;
+}
+
+.profile-edit-delete-image-button {
+  position: absolute;
+  top: 150px;
+  right: -10px;
+  padding: 5px;
+  background-color: rgb(68, 49, 194);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5%;
+  font-size: 14px;
+}
+
+.profile-edit-delete-image-button:hover {
+  background-color: #d32f2f;
+}
+
+.profile-edit-back-button {
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.profile-edit-back-button:hover {
+  background-color: #d32f2f;
+}
+
+@media (max-width: 768px) {
+  .profile-edit-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-edit-profile-section,
+  .profile-edit-images-section {
+    width: 90%;
+  }
+
+  .profile-edit-profile-section button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
