@@ -4,7 +4,7 @@ import { auth } from "./firebase";
 import { toast } from "react-toastify";
 import SignInwithGoogle from "./signInWIthGoogle";
 import SignInWithFacebook from "./signInWithFacebook";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -59,11 +59,11 @@ function Login() {
           </button>
 
           <p className="form-footer">
-            New user? <a href="/register">Register Here</a>
+            New user? <Link to="/register">Register here</Link>
           </p>
 
           <p className="form-footer">
-            Don't want to Login. <a href="/">Go to Home</a>
+            Don't want to Login. <Link to="/">Go back to Home</Link>
           </p>
 
           <SignInwithGoogle />

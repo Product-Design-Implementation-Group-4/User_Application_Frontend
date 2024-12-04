@@ -4,7 +4,7 @@ import { auth, db, storage } from "./firebase";
 import { setDoc, doc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate, Link } from "react-router-dom"; 
 import "../App.css";
 
 function Register() {
@@ -177,7 +177,7 @@ function Register() {
           
           <div className="form-footer">
             <p>
-              Already have an account? <a href="/login">Login</a>
+              Already have an account? <Link to="/login">Login here</Link>
             </p>
           </div>
         </form>

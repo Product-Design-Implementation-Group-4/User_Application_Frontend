@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Navbar.css";
 import companyLogo from "../assets/company.png";
+import { Link } from "react-router-dom";
 
 function Navbar({ userDetails, handleLogout, handleDeleteAccount }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -28,9 +29,9 @@ function Navbar({ userDetails, handleLogout, handleDeleteAccount }) {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <a href="/profile">
-          <img src={companyLogo} alt="Company Logo"/>
-        </a>
+        <Link to="/">
+          <img src={companyLogo} alt="Company Logo" />
+        </Link>
       </div>
       {userDetails && (
         <div className="navbar-user">

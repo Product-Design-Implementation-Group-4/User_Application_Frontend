@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import './NavbarHome.css';
 import companyLogo from '../assets/company.png'; // Import the image
 
@@ -6,17 +7,17 @@ const NavbarHome = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <a href="/">
-          <img src={companyLogo} alt="Company Logo" className="logo-image" />
-        </a>
+        <Link to="/">
+          <img src={companyLogo} alt="Company Logo" />
+        </Link>
       </div>
       <ul className="navbar-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/jobs">Jobs</a></li>
-        <li><a href="/services">Services</a></li>
-        <li><a href="/support">Support</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact Us</a></li>
+      <li><Link to="/">Home</Link></li>
+  <li><Link to="/jobs">Jobs</Link></li>
+  <li><Link to="/services">Services</Link></li>
+  <li><Link to="/support">Support</Link></li>
+  <li><Link to="/about">About</Link></li>
+  <li><Link to="/contact">Contact Us</Link></li>
       </ul>
       
     </nav>
