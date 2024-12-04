@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom"; // Change here
 
 import Home from "./components/home";
 import Support from "./components/support";
@@ -46,13 +46,13 @@ function App() {
         <div className="auth-wrapper">
           <div className="auth-inner">
             <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/support" element={<Support />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contacts />} />
-            <Route path="/job-post" element={<JobPost/>} />
-            <Route path="/jobs" element={<Jobs/>} />
+              <Route path="/" element={<Home />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contacts />} />
+              <Route path="/job-post" element={<JobPost/>} />
+              <Route path="/jobs" element={<Jobs/>} />
               <Route
                 path="/login"
                 element={user ? <Navigate to="/profile" /> : <Login />}
