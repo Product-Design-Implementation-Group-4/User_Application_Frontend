@@ -4,13 +4,13 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage"; 
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_APP_ID,
-  measurementId: import.meta.env.VITE_MEASUREMENT_ID
+  apiKey: "AIzaSyA9g5tRGXRuluY226CASiyDdZv05scre8I",
+  authDomain: "testandroidpro-179da.firebaseapp.com",
+  projectId: "testandroidpro-179da",
+  storageBucket: "testandroidpro-179da.appspot.com",
+  messagingSenderId: "39860544479",
+  appId: "1:39860544479:web:2099bdb5b6c4b0f3c41a6a",
+  measurementId: "G-TV798QDM2N"
 };
 
 const app = initializeApp(firebaseConfig);
