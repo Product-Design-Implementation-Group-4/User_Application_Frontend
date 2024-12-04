@@ -9,8 +9,7 @@ export default defineConfig({
   define: {
     "process.env": process.env, // Makes `process.env` available in your app
   },
-  root: "public",
   server: {
-    historyApiFallback: true,
+    historyApiFallback: true, // Ensure React Router works
   },
 });
