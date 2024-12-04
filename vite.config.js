@@ -12,4 +12,7 @@ export default defineConfig({
   server: {
     historyApiFallback: true, // Ensure React Router works
   },
+  preview: {
+    historyApiFallback: true, // Fallback for preview mode
+  },
 });
