@@ -11,6 +11,9 @@ const Ticket = () => {
     return savedFaqs ? JSON.parse(savedFaqs) : [];
   });
   const [view, setView] = useState("open");
+  
+  // Temporary state for tracking edits
+  const [editedFaqs, setEditedFaqs] = useState({});
 
   useEffect(() => {
     const savedTickets = localStorage.getItem("tickets");
@@ -55,12 +58,19 @@ const Ticket = () => {
     localStorage.setItem("faqs", JSON.stringify(updatedFaqs));
   };
 
-  const handleSaveFaq = (index, updatedAnswer) => {
+  const handleSaveFaq = (index) => {
     const updatedFaqs = faqs.map((faq, i) =>
-      i === index ? { ...faq, answer: updatedAnswer.trim() } : faq
+      i === index ? { ...faq, answer: editedFaqs[index] || faq.answer } : faq
     );
     setFaqs(updatedFaqs);
     localStorage.setItem("faqs", JSON.stringify(updatedFaqs));
+
+    // Clear the temporary edited state after saving
+    setEditedFaqs({ ...editedFaqs, [index]: undefined });
+  };
+
+  const handleEditFaq = (index, value) => {
+    setEditedFaqs({ ...editedFaqs, [index]: value });
   };
 
   return (
@@ -133,14 +143,14 @@ const Ticket = () => {
                   <p>
                     <strong>A:</strong>{" "}
                     <textarea
-                      defaultValue={faq.answer}
-                      onBlur={(e) => handleSaveFaq(index, e.target.value)}
+                      value={editedFaqs[index] || faq.answer}
+                      onChange={(e) => handleEditFaq(index, e.target.value)}
                     />
                   </p>
                   <div className="ticket-actions">
                     <button
                       className="save-btn"
-                      onClick={() => handleSaveFaq(index, faq.answer)}
+                      onClick={() => handleSaveFaq(index)}
                     >
                       Save
                     </button>
