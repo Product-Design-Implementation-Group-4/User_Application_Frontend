@@ -16,6 +16,7 @@ const NavbarHome = () => {
   <li><Link to="/jobs">Jobs</Link></li>
   <li><Link to="/services">Services</Link></li>
   <li><Link to="/support">Support</Link></li>
+  <li><Link to="/Ticket">Ticket</Link></li>
   <li><Link to="/about">About</Link></li>
   <li><Link to="/contact">Contact Us</Link></li>
       </ul>

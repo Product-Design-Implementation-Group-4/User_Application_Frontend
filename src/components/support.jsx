@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import NavbarHome from "../components/NavbarHome";
 import "./support.css";
@@ -6,30 +7,29 @@ import "./support.css";
 const Support = () => {
   const navigate = useNavigate();
 
-  const faqs = [
-    { question: "What is the process for booking a move?", answer: "You can book a move online or call our support team." },
-    { question: "Do you provide packing materials?", answer: "Yes, we offer high-quality packing materials for an additional fee." },
-    { question: "How do I receive my invoice?", answer: "Invoices are emailed after your move is completed." },
-    { question: "What is included in your moving service?", answer: "We provide packing, loading, transportation, and more." },
-  ];
-
-  const categories = {
-    Billing: [
-      { question: "How do I receive my invoice?", answer: "Invoices are emailed after your move is completed." },
-    ],
-    Services: [
-      { question: "What is included in your moving service?", answer: "We provide packing, loading, transportation, and more." },
-    ],
-  };
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [contactForm, setContactForm] = useState({
-    name: "",
-    email: "",
-    message: "",
+  // States for storing FAQs, search term, chat messages, and contact form data
+  const [faqs, setFaqs] = useState(() => {
+    const savedFaqs = localStorage.getItem("faqs");
+    return savedFaqs
+      ? JSON.parse(savedFaqs)
+      : [
+          { question: "What is the process for booking a move?", answer: "You can book a move online or call our support team." },
+          { question: "Do you provide packing materials?", answer: "Yes, we offer high-quality packing materials for an additional fee." },
+          { question: "How do I receive my invoice?", answer: "Invoices are emailed after your move is completed." },
+          { question: "What is included in your moving service?", answer: "We provide packing, loading, transportation, and more." },
+        ];
   });
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [contactForm, setContactForm] = useState({ name: "", email: "", message: "" });
   const [feedback, setFeedback] = useState("");
+  const [chatMessages, setChatMessages] = useState([]);
+  const [inactivityTimer, setInactivityTimer] = useState(null);
+  const [reminderTimer, setReminderTimer] = useState(null);
+
+  useEffect(() => {
+    localStorage.setItem("faqs", JSON.stringify(faqs));
+  }, [faqs]);
 
   const filteredFaqs = faqs.filter((faq) =>
     faq.question.toLowerCase().includes(searchTerm.toLowerCase())
@@ -42,27 +42,161 @@ const Support = () => {
 
   const handleContactSubmit = (e) => {
     e.preventDefault();
+
+    // Create a new contact ticket and add it to the open tickets
+    const newTicket = {
+      id: Date.now(),
+      question: `From: ${contactForm.name}, Email: ${contactForm.email}, Message: ${contactForm.message}`,
+      answer: "",  // You can leave answer empty or include further details if needed
+      status: "Open",
+    };
+
+    const existingTickets = JSON.parse(localStorage.getItem("tickets")) || [];
+    existingTickets.push(newTicket);
+    localStorage.setItem("tickets", JSON.stringify(existingTickets));
+
     alert("Your message has been submitted!");
-    setContactForm({
-      name: "",
-      email: "",
-      message: "",
-    });
+    setContactForm({ name: "", email: "", message: "" });
   };
 
   const handleFeedbackSubmit = (e) => {
     e.preventDefault();
+  
+    // Create a new feedback ticket with the feedback as the question
+    const newTicket = {
+      id: Date.now(),
+      question: `From: Feedback, Message: ${feedback}`,  // Use the feedback as the question
+      answer: "",  // You can leave answer empty or include further details if needed
+      status: "Open",
+    };
+  
+    // Fetch existing tickets from localStorage
+    const existingTickets = JSON.parse(localStorage.getItem("tickets")) || [];
+    existingTickets.push(newTicket); // Add the new ticket
+    localStorage.setItem("tickets", JSON.stringify(existingTickets)); // Store the updated tickets
+  
+    // Show a confirmation message to the user
     alert("Thank you for your feedback!");
-    setFeedback(""); // Reset the feedback text box
+  
+    // Clear the feedback input field
+    setFeedback("");
   };
+  
+
+  const handleChatSubmit = (e) => {
+    e.preventDefault();
+    const userMessage = e.target[0].value;
+    const botReply = getBotReply(userMessage);
+
+    setChatMessages([...chatMessages, { user: userMessage, bot: botReply }]);
+
+    if (botReply.includes("I'm not sure")) {
+      if (userMessage.trim()) {
+        const newTicket = {
+          id: Date.now(),
+          question: userMessage,
+          answer: "",
+          status: "Open",
+        };
+
+        const existingTickets = JSON.parse(localStorage.getItem("tickets")) || [];
+        existingTickets.push(newTicket);
+
+        localStorage.setItem("tickets", JSON.stringify(existingTickets));
+      }
+
+      setChatMessages((prev) => [
+        ...prev,
+        {
+          bot: (
+            <span>
+              For further assistance, please visit our{" "}
+              <Link to="/contact" className="contact-link">
+                Contact Us
+              </Link>{" "}
+              page.
+            </span>
+          ),
+        },
+      ]);
+    }
+
+    e.target[0].value = "";
+    resetTimers();
+  };
+
+  const resetTimers = () => {
+    clearTimeout(inactivityTimer);
+    clearTimeout(reminderTimer);
+    setInactivityTimer(null);
+    setReminderTimer(null);
+    startInactivityTimer();
+    startReminderTimer();
+  };
+
+  const startInactivityTimer = () => {
+    const timer = setTimeout(() => {
+      setChatMessages([]);
+    }, 180000); // 3 minutes of inactivity
+    setInactivityTimer(timer);
+  };
+
+  const startReminderTimer = () => {
+    const reminder = setTimeout(() => {
+      setChatMessages((prev) => [
+        ...prev,
+        { bot: "Is there anything else I can help you with?" },
+      ]);
+    }, 60000); // Remind after 1 minute of chat inactivity
+    setReminderTimer(reminder);
+  };
+
+  const getBotReply = (userMessage) => {
+    const lowercasedQuery = userMessage.toLowerCase();
+
+    if (lowercasedQuery.includes("hi") || lowercasedQuery.includes("hello")) {
+      return "Hello! How can I assist you today?";
+    }
+
+    if (lowercasedQuery.includes("services")) {
+      return "We are currently providing only moving out services.";
+    }
+
+    if (lowercasedQuery.includes("invoice") || lowercasedQuery.includes("bill")) {
+      return "Invoices are emailed after your move is completed.";
+    }
+
+    const matchingFaqs = faqs.filter(
+      (faq) =>
+        faq.question.toLowerCase().includes(lowercasedQuery) ||
+        faq.answer.toLowerCase().includes(lowercasedQuery)
+    );
+
+    if (matchingFaqs.length > 0) {
+      return matchingFaqs
+        .map(
+          (faq) =>
+            `<strong>Q:</strong> ${faq.question} <br/><strong>A:</strong> ${faq.answer}`
+        )
+        .join("<br/><br/>");
+    }
+
+    return "I'm not sure I understand your question. A ticket has been created.";
+  };
+
+  const handleCloseChat = () => {
+    setChatMessages([]);
+    resetTimers();
+  };
+
+  const displayedFaqs = filteredFaqs.slice(0, 5);
 
   return (
     <div className="support-page">
-           <NavbarHome />
-     
+      <NavbarHome />
       <header className="support-header">
         <h1>Support</h1>
-        <p>Find answers to your questions about our moving-out services or contact us for help.</p>
+        <p>Find answers to your questions about our services or contact us for help.</p>
         <input
           type="text"
           className="search-bar"
@@ -73,64 +207,53 @@ const Support = () => {
       </header>
 
       <main className="faq-container">
-        <h2>Frequently Asked Questions</h2>
-        {filteredFaqs.length > 0 ? (
-          filteredFaqs.map((faq, index) => (
+        <h2>FAQs</h2>
+        {displayedFaqs.length ? (
+          displayedFaqs.map((faq, index) => (
             <div key={index} className="faq-item">
               <h3 className="faq-question">{faq.question}</h3>
               <p className="faq-answer">{faq.answer}</p>
-              <div className="feedback-buttons">
-                <button onClick={() => alert("Thank you for your feedback!")}>👍 Yes</button>
-                <button onClick={() => alert("We'll improve this!")}>👎 No</button>
-              </div>
             </div>
           ))
         ) : (
           <p className="no-results">No FAQs match your search.</p>
         )}
-
-        {/* Feedback Section directly after FAQs */}
-        <section className="feedback-section">
-          <h2>Suggestions/Feedback</h2>
-          <form onSubmit={handleFeedbackSubmit} className="feedback-form">
-            <textarea
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-              placeholder="We value your suggestions and feedback..."
-              className="feedback-textarea"
-              rows="5"
-              required
-            />
-            <button type="submit" className="feedback-submit">Submit Feedback</button>
-          </form>
-        </section>
       </main>
 
-      <section className="categories-container">
-        <h2>Help Topics</h2>
-        {Object.entries(categories).map(([category, faqs], index) => (
-          <div key={index}>
-            <h3 className="category-title">{category}</h3>
-            {faqs.map((faq, idx) => (
-              <div key={idx} className="faq-item">
-                <h4 className="faq-question">{faq.question}</h4>
-                <p className="faq-answer">{faq.answer}</p>
+      <section className="chatbot-section">
+        <h2>Chat with Us</h2>
+        <div className="chat-box">
+          {chatMessages.map((msg, idx) => (
+            <div key={idx}>
+              <div className="chat-message user-message">{msg.user}</div>
+              <div className="chat-message bot-message">
+                {typeof msg.bot === "string" ? (
+                  <span dangerouslySetInnerHTML={{ __html: msg.bot }} />
+                ) : (
+                  msg.bot
+                )}
               </div>
-            ))}
-          </div>
-        ))}
+            </div>
+          ))}
+          <form onSubmit={handleChatSubmit}>
+            <input type="text" className="chat-input" placeholder="Ask me anything..." required />
+            <button type="submit" className="chat-submit">Send</button>
+          </form>
+        </div>
+        <button className="close-chat" onClick={handleCloseChat}>
+          Close Chat
+        </button>
       </section>
 
-      <section className="contact-section">
-        <h2>E-mail Us</h2>
-        <form onSubmit={handleContactSubmit} className="contact-form">
+      <section className="contact-form">
+        <h2>Email Us</h2>
+        <form onSubmit={handleContactSubmit}>
           <input
             type="text"
             name="name"
             value={contactForm.name}
             onChange={handleContactChange}
             placeholder="Your Name"
-            className="form-input"
             required
           />
           <input
@@ -139,7 +262,6 @@ const Support = () => {
             value={contactForm.email}
             onChange={handleContactChange}
             placeholder="Your Email"
-            className="form-input"
             required
           />
           <textarea
@@ -147,11 +269,21 @@ const Support = () => {
             value={contactForm.message}
             onChange={handleContactChange}
             placeholder="Your Message"
-            className="form-textarea"
-            rows="5"
             required
           />
-          <button type="submit" className="form-submit">Submit</button>
+          <button type="submit">Send Message</button>
+        </form>
+      </section>
+
+      <section className="feedback-section">
+        <h2>Feedback</h2>
+        <form onSubmit={handleFeedbackSubmit}>
+          <textarea
+            value={feedback}
+            onChange={(e) => setFeedback(e.target.value)}
+            placeholder="Your feedback"
+          />
+          <button type="submit">Submit Feedback</button>
         </form>
       </section>
     </div>

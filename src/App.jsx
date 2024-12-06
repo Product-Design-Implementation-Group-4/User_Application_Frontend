@@ -5,6 +5,7 @@ import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 
 import Home from "./components/home";
 import Support from "./components/support";
+import Ticket from "./components/Ticket";
 import Contacts from "./components/contact";
 import Services from "./components/services";
 import About from "./components/about";
@@ -49,6 +50,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/services" element={<Services />} />
               <Route path="/support" element={<Support />} />
+              <Route path="/Ticket" element={<Ticket />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contacts />} />
               <Route path="/job-post" element={<JobPost/>} />
