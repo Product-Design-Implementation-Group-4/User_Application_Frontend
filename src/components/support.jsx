@@ -26,6 +26,7 @@ const Support = () => {
   const [chatMessages, setChatMessages] = useState([]);
   const [inactivityTimer, setInactivityTimer] = useState(null);
   const [reminderTimer, setReminderTimer] = useState(null);
+  const [voiceInput, setVoiceInput] = useState(""); // State to store voice input
 
   useEffect(() => {
     localStorage.setItem("faqs", JSON.stringify(faqs));
@@ -43,11 +44,10 @@ const Support = () => {
   const handleContactSubmit = (e) => {
     e.preventDefault();
 
-    // Create a new contact ticket and add it to the open tickets
     const newTicket = {
       id: Date.now(),
       question: `From: ${contactForm.name}, Email: ${contactForm.email}, Message: ${contactForm.message}`,
-      answer: "",  // You can leave answer empty or include further details if needed
+      answer: "", 
       status: "Open",
     };
 
@@ -62,30 +62,24 @@ const Support = () => {
   const handleFeedbackSubmit = (e) => {
     e.preventDefault();
   
-    // Create a new feedback ticket with the feedback as the question
     const newTicket = {
       id: Date.now(),
-      question: `From: Feedback, Message: ${feedback}`,  // Use the feedback as the question
-      answer: "",  // You can leave answer empty or include further details if needed
+      question: `From: Feedback, Message: ${feedback}`,
+      answer: "",
       status: "Open",
     };
   
-    // Fetch existing tickets from localStorage
     const existingTickets = JSON.parse(localStorage.getItem("tickets")) || [];
-    existingTickets.push(newTicket); // Add the new ticket
-    localStorage.setItem("tickets", JSON.stringify(existingTickets)); // Store the updated tickets
+    existingTickets.push(newTicket);
+    localStorage.setItem("tickets", JSON.stringify(existingTickets));
   
-    // Show a confirmation message to the user
     alert("Thank you for your feedback!");
-  
-    // Clear the feedback input field
     setFeedback("");
   };
-  
 
   const handleChatSubmit = (e) => {
     e.preventDefault();
-    const userMessage = e.target[0].value;
+    const userMessage = voiceInput || e.target[0].value; // Use voice input if available
     const botReply = getBotReply(userMessage);
 
     setChatMessages([...chatMessages, { user: userMessage, bot: botReply }]);
@@ -122,6 +116,7 @@ const Support = () => {
     }
 
     e.target[0].value = "";
+    setVoiceInput(""); // Reset voice input after submission
     resetTimers();
   };
 
@@ -189,6 +184,29 @@ const Support = () => {
     resetTimers();
   };
 
+  const startVoiceRecognition = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("Speech Recognition API is not supported by your browser.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.interimResults = true;
+
+    recognition.start();
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      setVoiceInput(transcript);
+    };
+
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error", event);
+    };
+  };
+
   const displayedFaqs = filteredFaqs.slice(0, 5);
 
   return (
@@ -236,9 +254,19 @@ const Support = () => {
             </div>
           ))}
           <form onSubmit={handleChatSubmit}>
-            <input type="text" className="chat-input" placeholder="Ask me anything..." required />
+            <input
+              type="text"
+              className="chat-input"
+              placeholder="Ask me anything..."
+              value={voiceInput || ""}
+              onChange={(e) => setVoiceInput(e.target.value)}
+              required
+            />
             <button type="submit" className="chat-submit">Send</button>
           </form>
+          <button onClick={startVoiceRecognition} className="voice-input-button">
+            🎤 Start Voice Input
+          </button>
         </div>
         <button className="close-chat" onClick={handleCloseChat}>
           Close Chat
